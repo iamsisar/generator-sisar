@@ -1,0 +1,21 @@
+{
+	"title": "<%= projectTitle %>",
+	"name": "<%= _.slugify(projectTitle) %>",
+	"version": "<%= projectVersion %>",
+	"author": "<%= authorName %>",
+	"private": true,
+	"description": "<%= projectDescription %>",
+	"node_version": ">= 0.8.0",
+	"devDependencies": {
+		"grunt-contrib-jshint": "latest",
+		"grunt-contrib-uglify": "latest",
+		"grunt-contrib-concat": "latest",
+		"grunt-contrib-watch": "latest",
+		"grunt-contrib-sass": "latest",
+		"grunt-contrib-imagemin": "latest",
+		"grunt-svgmin": "latest",
+		"grunt-svg2png": "latest",
+		"grunt-contrib-compass": "latest",
+		"grunt-notify": "latest"
+	}
+}

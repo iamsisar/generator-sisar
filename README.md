@@ -1,4 +1,4 @@
-# generator-sisar [![Build Status](https://secure.travis-ci.org/cescoc/generator-sisar.png?branch=master)](https://travis-ci.org/cescoc/generator-sisar)
+# generator-sisar
 
 > [Yeoman](http://yeoman.io) generator
 

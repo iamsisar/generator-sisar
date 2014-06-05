@@ -1,3 +1,12 @@
+/*!
+ * <%= projectTitle  %> - v <%= projectVersion %>
+ * Created on <%= creationDate %> by <%= authorName %>
+ *
+ * <%= projectDescription %>
+ *
+ */
+
+
 module.exports = function(grunt) {
 
 // Project configuration.
@@ -13,11 +22,6 @@ module.exports = function(grunt) {
         bootstrapAssets     : 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap',<% }
         if (includeFontawesome) { %>
         fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
-
-        // Metadata.
-        banner: '/*! <%= projectTitle  %> - v <%= projectVersion %>' +
-          'Created by <%= authorName %>\n\n' +
-          '<%= projectDescription %>\n\n',
 
         // Tasks configuration.
         uglify: {

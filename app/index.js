@@ -101,7 +101,6 @@ var SisarGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function (answers) {
 
 	    var ingredients = answers.ingredients;
-
 	    function hasFeature(feat) { return ingredients.indexOf(feat) !== -1; }
 
 	    this.includeModernizr = hasFeature('includeModernizr');
@@ -118,6 +117,14 @@ var SisarGenerator = yeoman.generators.Base.extend({
       this.imgFolder = answers.imgFolder;
       this.jqueryVersion = answers.jqueryVersion;
       this.googlefonts = answers.googlefonts;
+
+
+      var date = new Date();
+      var today = date.getUTCMonth() + 1;
+      today += '-' + date.getDate();
+      today += '-' + date.getFullYear();
+
+      this.creationDate = today;
 
       done();
     }.bind(this));

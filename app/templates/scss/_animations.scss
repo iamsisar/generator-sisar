@@ -1,0 +1,6 @@
+.container{
+  @include transition-property(max-width, width);
+  @include transition-duration(.3s);
+  @include transition-timing-function(linear); 
+}
+

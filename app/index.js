@@ -65,26 +65,26 @@ var SisarGenerator = yeoman.generators.Base.extend({
 	    }
 	  ]
   	},
-    // {
-    //   name: 'buildPath',
-    //   message: 'Please enter the relative path to the build root',
-    //   default: '..'
-    // },
-    // {
-    //   name: 'cssFolder',
-    //   message: 'Specify a name for th Stylesheet folder',
-    //   default: 'css'
-    // },
-    // {
-    //   name: 'jsFolder',
-    //   message: 'Specify a name for th Javascript folder',
-    //   default: 'js'
-    // },
-    // {
-    //   name: 'imgFolder',
-    //   message: 'Specify a name for the images folder',
-    //   default: 'img'
-    // },
+    {
+      name: 'buildPath',
+      message: 'Please enter the relative path to the build root',
+      default: '..'
+    },
+    {
+      name: 'cssFolder',
+      message: 'Specify a name for th Stylesheet folder',
+      default: 'css'
+    },
+    {
+      name: 'jsFolder',
+      message: 'Specify a name for th Javascript folder',
+      default: 'js'
+    },
+    {
+      name: 'imgFolder',
+      message: 'Specify a name for the images folder',
+      default: 'img'
+    },
     {
       name: 'jqueryVersion',
       message: 'Wich version of jQuery shall we use? (only numbers and dots).\nPlease note that jQuery 2.0+ only support IE9+. By default we use 1.9.0 but you can specify an earlier version and forget about dumb browsers.',
@@ -104,18 +104,18 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
 	    function hasFeature(feat) { return ingredients.indexOf(feat) !== -1; }
 
-	    this.includeSass = hasFeature('includeModernizr');
+	    this.includeModernizr = hasFeature('includeModernizr');
 	    this.includeBootstrap = hasFeature('includeBootstrap');
-	    this.includeModernizr = hasFeature('includeFontawesome');
+	    this.includeFontawesome = hasFeature('includeFontawesome');
 
       this.authorName = answers.authorName;
       this.projectTitle = answers.projectTitle;
       this.projectDescription = answers.projectDescription;
       this.projectVersion = answers.projectVersion;
       this.buildPath = answers.buildPath;
-      this.cssFolderName = answers.cssFolderName;
-      this.jsFolderName = answers.jsFolderName;
-      this.imgFolderName = answers.imgFolderName;
+      this.cssFolder = answers.cssFolder;
+      this.jsFolder = answers.jsFolder;
+      this.imgFolder = answers.imgFolder;
       this.jqueryVersion = answers.jqueryVersion;
       this.googlefonts = answers.googlefonts;
 
@@ -124,11 +124,26 @@ var SisarGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
-    this.mkdir('app');
-    this.mkdir('app/templates');
+    this.mkdir('css');
+    this.mkdir('css/parts');
+
+    this.mkdir('js');
+    this.mkdir('js/lib');
+    this.mkdir('js/src');
+
+    this.mkdir('img');
+    this.mkdir('img/src');
+
+    this.mkdir('scss');
+    this.mkdir('scss/bootstrap');
 
     this.template('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
+    this.template('_bower.json', 'bower.json');
+    this.template('Gruntfile.js', 'Gruntfile.js');
+    this.copy('_config.rb', 'config.rb');
+
+    this.directory('scss', 'scss');
+    this.template('scss/main.scss', 'scss/main.scss');
   },
 
   projectfiles: function () {

@@ -1,0 +1,147 @@
+//* = Mixins
+//----------------------------------------------- */
+
+@mixin icon($icon) {
+  &:before{
+    content: $icon;
+    @extend .#{$fa-css-prefix};
+  }
+}
+
+
+@mixin custom-check($type, $width, $height, $bg){
+  .foo:checked::before,
+  input[type=#{$type}] {
+      position:absolute;
+      clip: rect(0,0,0,0);
+      clip: rect(0 0 0 0);
+  }
+
+  .foo:checked,
+  input[type=#{$type}] + label {
+    position:relative;
+    cursor:pointer;
+    line-height:$height;
+  }
+
+  .foo:checked,
+  input[type=#{$type}] + label::before {
+      content: '';
+      display:inline-block;
+      top:0;
+      width: $width;
+      height: $height;
+      background:url($bg) no-repeat right;
+      vertical-align:top;
+      margin-right:0.5em
+  }
+
+  .foo:checked,
+  input[type=#{$type}] + label::before{
+      background:url($bg) no-repeat right;
+
+  }
+
+  input[type=#{$type}]:checked + label::before {
+    background-position:left;
+  }
+
+}
+
+
+@mixin triangle ($size, $color, $direction) {
+  height: 0;
+  width: 0;
+
+  @if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size / 2;
+
+    @if $direction == up {
+      border-bottom-color: $color;
+
+    } @else if $direction == right {
+      border-left-color:   $color;
+
+    } @else if $direction == down {
+      border-top-color:    $color;
+
+    } @else if $direction == left {
+      border-right-color:  $color;
+    }
+  }
+
+  @else if ($direction == up-right) or ($direction == up-left) {
+    border-top: $size solid $color;
+
+    @if $direction == up-right {
+      border-left:  $size solid transparent;
+
+    } @else if $direction == up-left {
+      border-right: $size solid transparent;
+    }
+  }
+
+  @else if ($direction == down-right) or ($direction == down-left) {
+    border-bottom: $size solid $color;
+
+    @if $direction == down-right {
+      border-left:  $size solid transparent;
+
+    } @else if $direction == down-left {
+      border-right: $size solid transparent;
+    }
+  }
+}
+
+
+//* = smooth transitions
+//----------------------------------------------- */
+@mixin smooth{
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+}
+
+//* = Extends
+//----------------------------------------------- */
+
+%inline-block{
+	@include inline-block;
+}
+
+%container{
+	@include container-fixed;
+	position:relative;
+	@media (min-width: $screen-tablet) { max-width: $container-tablet; }
+	@media (min-width: $screen-desktop) { max-width: $container-desktop; }
+	@media (min-width: $screen-lg-desktop) { max-width: $container-lg-desktop; }
+}
+
+%row{
+  @include make-row;
+}
+
+
+
+//* = Breakpoints
+//----------------------------------------------- */
+
+@mixin breakpoint($point) {
+  @if $point == lg {
+    @media screen and (min-width: $screen-lg) { @content; }
+  }
+  @else if $point == md {
+    	@media screen and( min-width: $screen-md ) and (max-width: $screen-md-max) { @content; }
+  }
+  @else if $point == sm {
+    @media screen and (max-width: $screen-sm-max) { @content; }
+  }
+  @else if $point == xs {
+    @media screen and (max-width: $screen-xs-max) { @content; }
+  }
+  @else if $point == phone {
+    @media screen and (max-width: $screen-xs) { @content; }
+  }
+}
+

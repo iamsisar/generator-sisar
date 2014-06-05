@@ -1,0 +1,78 @@
+///*
+// <%= projectTitle %>
+//
+// -----------------------------
+// Table of Contents:
+// 	 = Setup
+// 	 = Typography
+//	 = Utils
+// 	 = General
+//	 = Layout
+//	 = GUI elements
+//
+// -----------------------------
+//
+//*/
+
+@import url(http://fonts.googleapis.com/css?family=<%=googlefonts %>);
+
+//* = Setup
+//----------------------------------------------- */
+
+// Setup
+@import 'setup';
+
+// Reset
+@import 'reset';
+
+// Compass
+@import 'compass/css3';
+
+// Bootstrap
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+//@import 'bootstrap/bootstrap';
+
+
+// FontAwesome
+@import 'fontawesome/variables';
+@import 'fontawesome/mixins';
+@import 'fontawesome/path';
+@import 'fontawesome/core';
+
+// Custom
+@import 'variables';
+@import 'mixins';
+@import 'palette';
+
+
+//* = Typography
+//----------------------------------------------- */
+
+
+//* = Utils
+//----------------------------------------------- */
+.fleft{float:left}
+.fright{float:right}
+.clear{clear:both}
+%clearfix{ @include clearfix() }
+
+.hidden{display:none}
+
+.img-responsive{ @include img-responsive }
+%row{ @include make-row }
+
+//* = General
+//----------------------------------------------- */
+
+
+//* = Layout
+//----------------------------------------------- */
+
+
+//* = GUI Elements
+//----------------------------------------------- */
+
+
+@import 'animations';
+@import 'fallbacks';

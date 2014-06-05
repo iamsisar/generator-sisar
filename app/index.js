@@ -12,9 +12,19 @@ var SisarGenerator = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
 
     this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies();
-      }
+      this.installDependencies({
+        skipInstall: this.options['skip-install'],
+        callback: function() {
+            // Emit a new event - dependencies installed
+            this.emit('dependenciesInstalled');
+        }.bind(this)
+      });
+    });
+  },
+
+  done: function () {
+    this.on('dependenciesInstalled', function() {
+      this.spawnCommand('grunt', ['copy']);
     });
   },
 
@@ -23,12 +33,15 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
 		// Have Yeoman greet the user.
 		this.log(yosay('Welcome to the marvelous Sisar generator!'));
+    this.log(chalk.yellow(
+      'Hello! We\'re now about to scaffold a new project following guidelines and\n'+
+      'structure usually adopted by @iamsisar and the cool people he works with.\n'));
 
     var prompts = [
     // Prompt for these values.
     {
       name: 'authorName',
-      message: 'Hi! Whats your name?'
+      message: 'First of all, what\'s your name?'
     },
     {
       name: 'projectTitle',
@@ -37,17 +50,17 @@ var SisarGenerator = yeoman.generators.Base.extend({
     },
     {
       name: 'projectDescription',
-      message: 'What about providing a short description? Feel free to write down your thoughts, your fears, your desires...',
+      message: 'How about providing a short description? Feel free to write down your thoughts, your fears, your desires...',
     },
     {
       name: 'projectVersion',
-      message: 'Version number?',
+      message: 'There is a version number?',
       default: '0.0.1'
     },
     {
     type: 'checkbox',
     name: 'ingredients',
-    message: 'Time to choose the ingredients for your soup!',
+    message: 'Good! Now it\'s time to choose the ingredients for your soup!',
     choices: [{
       name: 'Bootstrap (bootstrap-sass)',
       value: 'includeBootstrap',
@@ -72,28 +85,28 @@ var SisarGenerator = yeoman.generators.Base.extend({
     },
     {
       name: 'cssFolder',
-      message: 'Specify a name for th Stylesheet folder',
+      message: 'Please specify a name for the Stylesheet folder',
       default: 'css'
     },
     {
       name: 'jsFolder',
-      message: 'Specify a name for th Javascript folder',
+      message: 'Please specify a name for the Javascript folder',
       default: 'js'
     },
     {
       name: 'imgFolder',
-      message: 'Specify a name for the images folder',
+      message: 'Please specify a name for the Images folder',
       default: 'img'
     },
     {
       name: 'jqueryVersion',
-      message: 'Wich version of jQuery shall we use? (only numbers and dots).\nPlease note that jQuery 2.0+ only support IE9+. By default we use 1.9.0 but you can specify an earlier version and forget about dumb browsers.',
+      message: 'Wich version of jQuery shall we use? (only numbers and dots).\nPlease note that jQuery 2.0+ only supports IE9+. By default we use 1.9.0 but you can specify an earlier version and forget about dumb browsers.',
       default: '1.9.0'
     },
-    // {
-    //   name: 'googlefonts',
-    //   message: 'Any particular Google Web Font to use?.\nSpecify fonts name separated by pipes and replace whitespaces with pluses. Eg. Lato|Droid+Sans',
-    // }
+    {
+      name: 'googlefonts',
+      message: 'Any particular Google Web Font to use?.\nSpecify fonts name separated by pipes and replace whitespaces with pluses./n(Eg. Lato|Droid+Sans . Leave blank if not desired.)',
+    }
 
 
     ];
@@ -105,7 +118,8 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
 	    this.includeModernizr = hasFeature('includeModernizr');
 	    this.includeBootstrap = hasFeature('includeBootstrap');
-	    this.includeFontawesome = hasFeature('includeFontawesome');
+      this.includeFontawesome = hasFeature('includeFontawesome');
+      this.googlefonts = hasFeature('googlefonts');
 
       this.authorName = answers.authorName;
       this.projectTitle = answers.projectTitle;
@@ -142,7 +156,13 @@ var SisarGenerator = yeoman.generators.Base.extend({
     this.mkdir('img/src');
 
     this.mkdir('scss');
-    this.mkdir('scss/bootstrap');
+
+    if ( this.includeBootstrap ){
+      this.mkdir('scss/bootstrap');
+    }
+    if ( this.includeFontawesome ){
+      this.mkdir('scss/fontawesome');
+    }
 
     this.template('_package.json', 'package.json');
     this.template('_bower.json', 'bower.json');

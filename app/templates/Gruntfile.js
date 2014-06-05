@@ -221,7 +221,21 @@ module.exports = function(grunt) {
                     message: 'All images have been optimized/compressed',
                 }
             }
+        },
+
+
+        copy: {
+            <% if (includeBootstrap) { %>
+            bootstrap: {
+                src: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/_variables.scss',
+                dest: 'scss/bootstrap/_variables.scss',
+            },<% } if (includeFontawesome) { %>
+            fontawesome: {
+                src: 'bower_components/fontawesome/scss/_variables.scss',
+                dest: 'scss/fontawesome/_variables.scss',
+            }<% } %>
         }
+
 
     });
 
@@ -236,6 +250,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-svg2png');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-notify');
+
+    grunt.loadNpmTasks('grunt-contrib-copy');
+
 
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.

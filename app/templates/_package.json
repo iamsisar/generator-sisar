@@ -16,6 +16,7 @@
 		"grunt-svgmin": "latest",
 		"grunt-svg2png": "latest",
 		"grunt-contrib-compass": "latest",
-		"grunt-notify": "latest"
+		"grunt-notify": "latest",
+	    "grunt-contrib-copy": "~0.5.0"
 	}
 }

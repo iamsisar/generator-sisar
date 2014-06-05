@@ -14,7 +14,7 @@
 //
 //*/
 
-@import url(http://fonts.googleapis.com/css?family=<%=googlefonts %>);
+<% if (googlefonts) { %> @import url(http://fonts.googleapis.com/css?family=<%=googlefonts %>);<% } %>
 
 //* = Setup
 //----------------------------------------------- */
@@ -30,15 +30,15 @@
 
 // Bootstrap
 @import 'bootstrap/variables';
-@import 'bootstrap/mixins';
-//@import 'bootstrap/bootstrap';
+@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/mixins';
+//@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
 
 
 // FontAwesome
 @import 'fontawesome/variables';
-@import 'fontawesome/mixins';
-@import 'fontawesome/path';
-@import 'fontawesome/core';
+@import '../bower_components/fontawesome/scss/mixins';
+@import '../bower_components/fontawesome/scss/path';
+@import '../bower_components/fontawesome/scss/core';
 
 // Custom
 @import 'variables';

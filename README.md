@@ -8,7 +8,7 @@
 
 Trick question. It's not a thing. It's this guy:
 
-![](http://i.imgur.com/JHaAlBJ.png)
+![](http://yeoman.io/assets/img/yeoman-003.2c57.png)
 
 Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
@@ -22,13 +22,13 @@ $ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-sisar from npm, run:
+generator-sisar cannot be installed via npm, so you'll have to clone it in a directory on your system the make it available to Yeoman running this command:
 
 ```bash
-$ npm install -g generator-sisar
+$ npm link
 ```
 
-Finally, initiate the generator:
+Finally, move to your project dir and initiate the generator:
 
 ```bash
 $ yo sisar

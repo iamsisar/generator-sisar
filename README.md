@@ -8,7 +8,7 @@
 
 Trick question. It's not a thing. It's this guy:
 
-![](http://yeoman.io/assets/img/yeoman-003.2c57.png)
+![](http://i.imgur.com/tjeYZu3.png)
 
 Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 

@@ -1,6 +1,6 @@
 # generator-sisar
 
-> [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://twitter.com/iamsisar) [cescoc](https://github.com/cescoc) and the cool people he works with.
+> [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://twitter.com/iamsisar) ([cescoc](https://github.com/cescoc)) and the cool people he works with.
 
 ## Getting Started
 

@@ -1,8 +1,8 @@
 //* = Mixins
 //----------------------------------------------- */
 
-@mixin icon($icon) {
-  &:before{
+@mixin icon($icon, $where:before ) {
+  &:#{$where}{
     content: $icon;
     @extend .#{$fa-css-prefix};
   }

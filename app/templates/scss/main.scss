@@ -31,8 +31,12 @@
 // Bootstrap
 @import 'bootstrap/variables';
 @import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/mixins';
-//@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
 
+// Bootstrap - enable columns placeholder selectors (e.g. %col-sm-6)
+@import 'bootstrap/custom-grid-extend';
+
+// Bootstrap - would you merge bootstrap in your css?
+//@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
 
 // FontAwesome
 @import 'fontawesome/variables';

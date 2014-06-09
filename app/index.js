@@ -159,6 +159,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
     if ( this.includeBootstrap ){
       this.mkdir('scss/bootstrap');
+      this.copy('scss/bootstrap/_custom-grid-extend.scss', 'scss/bootstrap/_custom-grid-extend.scss');
     }
     if ( this.includeFontawesome ){
       this.mkdir('scss/fontawesome');

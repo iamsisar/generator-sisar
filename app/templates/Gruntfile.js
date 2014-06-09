@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         cssFolder   : '<%= cssFolder %>',
         imgFolder   : '<%= imgFolder %>',
         <% if (includeBootstrap) {  %>
-        bootstrapAssets     : 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap',<% }
+        bootstrapAssets     : 'bootstrap',<% }
         if (includeFontawesome) { %>
         fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
 
@@ -227,8 +227,17 @@ module.exports = function(grunt) {
         copy: {
             <% if (includeBootstrap) { %>
             bootstrap: {
-                src: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/_variables.scss',
-                dest: 'scss/bootstrap/_variables.scss',
+                expand: true,
+                flatten: true,
+                cwd: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/',
+                src: ['bootstrap/_variables.scss','bootstrap.scss'],
+                dest: 'scss/bootstrap/',
+                filter: 'isFile',
+                options: {
+                    process: function (content, srcpath) {
+                       return content.replace(/@import "bootstrap\/*/mg,'@import \"bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/');
+                    }
+                }
             },<% } if (includeFontawesome) { %>
             fontawesome: {
                 src: 'bower_components/fontawesome/scss/_variables.scss',

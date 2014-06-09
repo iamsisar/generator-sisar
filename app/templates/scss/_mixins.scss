@@ -115,7 +115,7 @@
 	position:relative;
 	@media (min-width: $screen-tablet) { max-width: $container-tablet; }
 	@media (min-width: $screen-desktop) { max-width: $container-desktop; }
-	@media (min-width: $screen-lg-desktop) { max-width: $container-lg-desktop; }
+	@media (min-width: $screen-lg) { max-width: $container-lg; }
 }
 
 %row{

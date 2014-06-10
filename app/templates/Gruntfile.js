@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         cssFolder   : '<%= cssFolder %>',
         imgFolder   : '<%= imgFolder %>',
         <% if (includeBootstrap) {  %>
-        bootstrapAssets     : 'bootstrap',<% }
+        bootstrapAssets     : 'scss/bootstrap',<% }
         if (includeFontawesome) { %>
         fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
 

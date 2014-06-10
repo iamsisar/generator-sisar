@@ -10,6 +10,7 @@
 		"grunt-contrib-jshint": "latest",
 		"grunt-contrib-uglify": "latest",
 		"grunt-contrib-concat": "latest",
+	    "grunt-modernizr": "~0.5.2",
 		"grunt-contrib-watch": "latest",
 		"grunt-contrib-sass": "latest",
 		"grunt-contrib-imagemin": "latest",

@@ -2,7 +2,72 @@
 
 > [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://twitter.com/iamsisar) ([cescoc](https://github.com/cescoc)) and the cool people he works with.
 
-## Getting Started
+### Features
+Gives structure to your workflow to make your life easier
+* Compiles SASS with Compass on save
+* Generates customized Bootstrap build with only parts you need
+* Concatenates and minify javascripts
+* Automagically generates custom Modernizr build based on calls in your javascripts
+* Optimizes graphical assets by compressing images and minimifying svgs
+* Generates fallback png in support of your svg
+* Prints out fancy notification where supported
+
+### Installation
+
+generator-sisar cannot be installed via npm, so you'll have to clone it in a directory on your system the make it available to Yeoman running this command:
+
+```bash
+$ npm link
+```
+
+Finally, move to your project dir and initiate the generator:
+
+```bash
+$ yo sisar
+```
+
+## Directory structure
+Scaffolds out a complete project directory structure like the following (elements in brackets are optional):
+
+```
+├── Gruntfile.js
+├── bower.json
+├── package.json
+├── config.rb
+|
+| ///// compiled css staging area
+├── css
+│   └── parts
+|
+| ///// graphical assets directory
+├── img
+│   └── src
+|
+| ///// javascripts
+├── js
+│   ├── lib
+│   │   └── (twbs_js)
+│   └── src
+|
+| ///// stylesheets SASS source files
+└── scss
+    ├── _animations.scss
+    ├── _fallbacks.scss
+    ├── _grid-extend.scss
+    ├── _mixins.scss
+    ├── _palette.scss
+    ├── _reset.scss
+    ├── _setup.scss
+    ├── _variables.scss
+    ├── (bootstrap)
+    │   ├── (_custom-grid-extend.scss)
+    │   ├── (_variables.scss)
+    │   └── (bootstrap.scss)
+    ├── (fontawesome)
+    │   └── (_variables.scss)
+    ├── ie.scss
+    └── main.scss
+```
 
 ### What is Yeoman?
 
@@ -18,21 +83,6 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-generator-sisar cannot be installed via npm, so you'll have to clone it in a directory on your system the make it available to Yeoman running this command:
-
-```bash
-$ npm link
-```
-
-Finally, move to your project dir and initiate the generator:
-
-```bash
-$ yo sisar
-```
 
 ### Getting To Know Yeoman
 

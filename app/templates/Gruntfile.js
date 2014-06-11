@@ -25,10 +25,15 @@ module.exports = function(grunt) {
 
         // Tasks configuration.
         uglify: {
-            build: {
+            dev: {
                 // minification
                 src: 'js/script.js',
                 dest: 'js/script.min.js'
+            },
+            build: {
+                // minification
+                src: 'js/script.js',
+                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
             }
         },
 
@@ -40,8 +45,10 @@ module.exports = function(grunt) {
                 },
                 src: [
                     // JS libs first with Modernizr at the top, then custom scripts (script.js is the last)
-                    'js/lib/modernizr.js',
-                    'js/lib/!(modernizr|_*).js',
+                    // libraries
+                    'js/lib/modernizr-<%= _.slugify(projectTitle) %>.js',
+                    'js/lib/**/!(modernizr-<%= _.slugify(projectTitle) %>|_*).js',
+                    // sources
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],
@@ -52,8 +59,10 @@ module.exports = function(grunt) {
                     separator:'\n\n'
                 },
                 src: [
-                    'js/lib/modernizr.js',
-                    'js/lib/!(modernizr|_*).js',
+                    // libraries
+                    'js/lib/modernizr-<%= _.slugify(projectTitle) %>.js',
+                    'js/lib/**/!(modernizr-<%= _.slugify(projectTitle) %>|_*).js',
+                    // sources
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],
@@ -76,6 +85,22 @@ module.exports = function(grunt) {
                 dest: '<%%= buildPath %>/<%%= cssFolder %>/style.css'
             }
         },
+        <% if (includeModernizr) { %>
+
+        modernizr: {
+
+            dist: {
+                // [REQUIRED] Path to the build you're using for development.
+                "devFile" : "bower_components/modernizr/modernizr.js",
+
+                // [REQUIRED] Path to save out the built file.
+                "outputFile" : "js/lib/modernizr-<%= _.slugify(projectTitle) %>.js",
+
+                "files" : {
+                    "src": ["js/src/*.js"]
+                }
+            }
+        },<% } %>
 
         imagemin: {
             options: {
@@ -174,7 +199,7 @@ module.exports = function(grunt) {
                 // when a source or a lib change in js folder, merge them together, then minify the concatenated file.
                 // If no errors, notify success.
                 files: ['js/src/*.js', 'js/lib/*.js'],
-                tasks: ['concat:script_dev','concat:script_build', 'uglify','jshint','notify:script'],
+                tasks: ['modernizr','concat:script_dev','concat:script_build', 'uglify','notify:script'],
                 options: {
                     spawn: false
                 }
@@ -226,7 +251,7 @@ module.exports = function(grunt) {
 
         copy: {
             <% if (includeBootstrap) { %>
-            bootstrap: [{
+            bootstrap_css: {
                 expand: true,
                 flatten: true,
                 cwd: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/',
@@ -237,7 +262,13 @@ module.exports = function(grunt) {
                     process: function (content, srcpath) {
                        return content.replace(/@import "bootstrap\/*/mg,'@import \"bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/');
                     }
-                }]
+                },
+            },
+            bootstrap_js: {
+                expand: true,
+                flatten: true,
+                src: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/*.js',],
+                dest: 'js/lib/twbs_js/'
             },<% } if (includeFontawesome) { %>
             fontawesome: {
                 src: 'bower_components/fontawesome/scss/_variables.scss',
@@ -260,9 +291,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-notify');
 
+    <% if(includeModernizr){ %>grunt.loadNpmTasks("grunt-modernizr");<% } %>
+
     grunt.loadNpmTasks('grunt-contrib-copy');
-
-
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default', [

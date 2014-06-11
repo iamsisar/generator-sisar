@@ -2,7 +2,7 @@
 
 > [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://twitter.com/iamsisar) ([cescoc](https://github.com/cescoc)) and the cool people he works with.
 
-### Features
+## Features
 Gives structure to your workflow to make your life easier
 * Compiles SASS with Compass on save
 * Generates customized Bootstrap build with only parts you need
@@ -12,7 +12,7 @@ Gives structure to your workflow to make your life easier
 * Generates fallback png in support of your svg
 * Prints out fancy notification where supported
 
-### Installation
+## Installation
 
 generator-sisar cannot be installed via npm, so you'll have to clone it in a directory on your system the make it available to Yeoman running this command:
 

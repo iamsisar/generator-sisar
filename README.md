@@ -34,7 +34,7 @@ $ yo sisar
 ```
 
 ## Workflow
-generator-sisar is strictly tailored around it's author habits and everyday work needs. Nevertheless it can rapresent a precious resource for digging into advanced workflow automation and modular front end developing. It's intended to be used both by individuals and teams and, since it's way far from perfection, many parts may be frequently changed/refactored. Any suggestion is welcome.
+generator-sisar is strictly tailored around it's author's habits and everyday work needs. Nevertheless it can rapresent a precious resource for digging into advanced workflow automation and modular front end developing. It's intended to be used both by individuals and teams and, since it's way far from perfection, many parts may be frequently changed/refactored. Any suggestion is welcome.
 
 
 ### Directory structure

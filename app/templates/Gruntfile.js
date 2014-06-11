@@ -226,7 +226,7 @@ module.exports = function(grunt) {
 
         copy: {
             <% if (includeBootstrap) { %>
-            bootstrap: {
+            bootstrap: [{
                 expand: true,
                 flatten: true,
                 cwd: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/',
@@ -237,7 +237,7 @@ module.exports = function(grunt) {
                     process: function (content, srcpath) {
                        return content.replace(/@import "bootstrap\/*/mg,'@import \"bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/');
                     }
-                }
+                }]
             },<% } if (includeFontawesome) { %>
             fontawesome: {
                 src: 'bower_components/fontawesome/scss/_variables.scss',

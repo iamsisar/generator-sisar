@@ -14,9 +14,15 @@ Gives structure to your workflow to make your life easier
 
 ## Installation
 
-generator-sisar cannot be installed via npm, so you'll have to clone it in a directory on your system the make it available to Yeoman running this command:
+Since this is a Yeoman scaffolding tool, you need **yo** to be installed on your machine:
+```bash
+$ npm install -g yo
+```
+
+generator-sisar cannot be installed via npm, so you'll have to clone it in a directory on your system then make it available to Yeoman running this command:
 
 ```bash
+$ git clone git://github.com/cescoc/generator-sisar.git
 $ npm link
 ```
 
@@ -26,7 +32,11 @@ Finally, move to your project dir and initiate the generator:
 $ yo sisar
 ```
 
-## Directory structure
+## Workflow
+generator-sisar is strictly tailored around it's author habits and everyday working needs. Nevertheless it can rapresent a precious resource for digging into advanced workflow automation and modular front end developing. It's intended to be used both as individual and team and, since it's way far from perfection, many parts may be frequently changed/refactored. Any suggestion is welcome.
+
+
+### Directory structure
 Scaffolds out a complete project directory structure like the following (elements in brackets are optional):
 
 ```
@@ -68,8 +78,17 @@ Scaffolds out a complete project directory structure like the following (element
     ├── ie.scss
     └── main.scss
 ```
+### Stylesheet workflow
+*coming soon*
+#### Bootstrap
+*coming soon*
 
-### What is Yeoman?
+### Javascript workflow
+*coming soon*
+#### Modernizr
+*coming soon*
+
+## What is Yeoman?
 
 Trick question. It's not a thing. It's this guy:
 

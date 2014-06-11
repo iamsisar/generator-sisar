@@ -10,6 +10,7 @@ Gives structure to your workflow to make your life easier
 * Automagically generates custom Modernizr build based on calls in your javascripts
 * Optimizes graphical assets by compressing images and minimifying svgs
 * Generates fallback png in support of your svg
+* Live-reloads your browser on save
 * Prints out fancy notification where supported
 
 ## Installation

@@ -198,7 +198,7 @@ module.exports = function(grunt) {
             scripts: {
                 // when a source or a lib change in js folder, merge them together, then minify the concatenated file.
                 // If no errors, notify success.
-                files: ['js/src/*.js', 'js/lib/*.js'],
+                files: ['js/src/*.js', 'js/lib/**/*.js'],
                 tasks: ['modernizr','concat:script_dev','concat:script_build', 'uglify','notify:script'],
                 options: {
                     spawn: false

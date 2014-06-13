@@ -1,4 +1,4 @@
-/*!
+/**
  * <%= projectTitle  %> - v <%= projectVersion %>
  * Created on <%= creationDate %> by <%= authorName %>
  *
@@ -9,11 +9,14 @@
 
 module.exports = function(grunt) {
 
-// Project configuration.
+    // load all grunt tasks matching the `grunt-*` pattern
+    require('load-grunt-tasks')(grunt);
+
+    // Project configuration.
     grunt.initConfig({
         pkg         : grunt.file.readJSON('package.json'),
 
-        // Folders and paths
+        // Folder names and build path definitions
         buildPath   : '<%= buildPath %>',
         jsFolder    : '<%= jsFolder %>',
         cssFolder   : '<%= cssFolder %>',
@@ -23,62 +26,52 @@ module.exports = function(grunt) {
         if (includeFontawesome) { %>
         fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
 
-        // Tasks configuration.
-        uglify: {
-            dev: {
-                // minification
-                src: 'js/script.js',
-                dest: 'js/script.min.js'
-            },
-            build: {
-                // minification
-                src: 'js/script.js',
-                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
-            }
-        },
-
+        // Javascript and css concatenation
         concat: {
             script_dev: {
-                options: {
-                    // Keep parts separated by line breaks, for the sake of readability
-                    separator:'\n\n'
-                },
+                // Script order:
+                // 1. Modernizr
+                // 2. other libraries
+                // 3. custom sources others then script.js
+                // 4. script.js
                 src: [
-                    // JS libs first with Modernizr at the top, then custom scripts (script.js is the last)
                     // libraries
-                    'js/lib/modernizr-<%= _.slugify(projectTitle) %>.js',
-                    'js/lib/**/!(modernizr-<%= _.slugify(projectTitle) %>|_*).js',
+                    'js/lib/modernizr-<%%= pkg.name %>.js',
+                    'js/lib/**/!(modernizr-<%%= pkg.name %>|_*).js',
                     // sources
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],
                 dest: 'js/script.js',
-            },
-            script_build: {
                 options: {
+                    // Keep parts separated by line breaks
                     separator:'\n\n'
-                },
+                }
+            },
+            // Same as above, but save result in build folder
+            script_build: {
                 src: [
-                    // libraries
-                    'js/lib/modernizr-<%= _.slugify(projectTitle) %>.js',
-                    'js/lib/**/!(modernizr-<%= _.slugify(projectTitle) %>|_*).js',
-                    // sources
+                    'js/lib/modernizr-<%%= pkg.name %>.js',
+                    'js/lib/**/!(modernizr-<%%= pkg.name %>|_*).js',
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],
-                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.js'
+                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.js',
+                options: {
+                    separator:'\n\n'
+                },
             },
+            // Appends stylesheets other then main.css at the bottom of style.css
             css_dev: {
                 src: [
-                    // Stylesheets other then main.css is treated as a shame-sheet
                     'css/parts/main.css',
                     'css/parts/!(main).css'
                 ],
                 dest: 'css/style.css'
             },
+            // Same as above, but save result in build folder
             css_build: {
                 src: [
-                    // Stylesheets other then main.css is treated as a shame-sheet
                     'css/parts/main.css',
                     'css/parts/!(main).css'
                 ],
@@ -87,78 +80,106 @@ module.exports = function(grunt) {
         },
         <% if (includeModernizr) { %>
 
+        // Create a custom Modernizr build based on calls inside your javascripts
         modernizr: {
-
             dist: {
-                // [REQUIRED] Path to the build you're using for development.
-                "devFile" : "bower_components/modernizr/modernizr.js",
-
-                // [REQUIRED] Path to save out the built file.
-                "outputFile" : "js/lib/modernizr-<%= _.slugify(projectTitle) %>.js",
-
-                "files" : {
-                    "src": ["js/src/*.js"]
+                'devFile' : 'bower_components/modernizr/modernizr.js',
+                'outputFile' : 'js/lib/modernizr-<%%= pkg.name %>.js',
+                // Javascripts to search into for Modernizr calls
+                'files' : {
+                    'src': ['js/src/*.js']
                 }
             }
         },<% } %>
 
-        imagemin: {
-            options: {
-                cache: false
+        // Once concatenated, create a minified version of your javascript
+        uglify: {
+            // Dev folder
+            dev: {
+                src: 'js/script.js',
+                dest: 'js/script.min.js'
             },
-            dist: {
-                files: [{
-                    // original images must be placed in src folder
-                    expand: true,
-                    cwd: 'img/src',
-                    src: ['**/*.{png,jpg,gif}'],
-                    dest: 'img/'
-                }]
-            },
+            // Build folder
             build: {
-                files: [{
-                    expand: true,
-                    cwd: '<%%= imgFolder %>/src',
-                    src: ['**/*.{png,jpg,gif}'],
-                    dest: '<%%= buildPath %>/<%%= imgFolder %>/'
-                }]
+                src: 'js/script.js',
+                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
             }
         },
 
-
+        // Optimize .svg files
+        // Original images must be placed in src folder
         svgmin: {
             options: {
                 plugins: [{
-                    removeViewBox: false, // requested by IE
+                    removeViewBox: false, // required by IE
                     removeUselessStrokeAndFill: true,
                     removeEmptyAttrs: true
                 }]
             },
-            dist: {
+            // Dev folder
+            dev: {
                 files: [{
-                    // original images must be placed in src folder
                     expand: true,
                     cwd: 'img/src',
                     src: '**/*.svg',
                     dest: 'img/',
                     ext: '.svg'
                 }]
-            }
-        },
-
-        svg2png: {
-            all: {
+            },
+            // Build folder
+            build: {
                 files: [{
-                    // once minified, .svg are converted to .png in the same folder
-                    src: ['img/**/*.svg']
+                    expand: true,
+                    cwd: 'img/src',
+                    src: '**/*.svg',
+                    dest: '<%%= buildPath %>/<%%= imgFolder %>/',
+                    ext: '.svg'
                 }]
             }
         },
 
-        sass: {
+        // Once optimized .svg, create fallback .png versions
+        svg2png: {
+            all: {
+                files: [{
+                    src: ['img/**/*.svg','<%%= buildPath %>/<%%= imgFolder %>/**/*.svg']
+                }]
+            }
+        },
+
+        // Compress .jpg, .png and .gif images
+        // Original images must be placed in 'src' folder
+        imagemin: {
+            options: {
+                cache: false
+            },
+            // Dev folder
             dev: {
-                // standard sass is used to compile framework separately. Remember IE css selector limits!
-                // http://blogs.msdn.com/b/ieinternals/archive/2011/05/14/10164546.aspx
+                files: [{
+                    expand: true,
+                    cwd: 'img/src',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: 'img/'
+                }]
+            },
+            // Build folder
+            build: {
+                files: [{
+                    expand: true,
+                    cwd: 'img/src',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%%= buildPath %>/<%%= imgFolder %>/'
+                }]
+            }
+        },
+
+        // Use SASS to compile frameworks separately.
+        // It's up to you to decide if keep them apart or merge with your css.
+        // Remember IE css selector limits!
+        // http://blogs.msdn.com/b/ieinternals/archive/2011/05/14/10164546.aspx
+        sass: {
+            // Dev folder
+            dev: {
                 options: {
                     style: 'compact'
                 },
@@ -167,9 +188,10 @@ module.exports = function(grunt) {
                     'css/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'
                 }
             },
+            // Build folder
             build: {
                 options: {
-                    style: 'nested'
+                    style: 'compressed'
                 },
                 files: {
                     '<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
@@ -178,8 +200,8 @@ module.exports = function(grunt) {
             }
         },
 
+        // Use Compass to compile your stylesheets and place them in css staging folder so they can be concatenated later.
         compass: {
-            // uses Compass. Compiled stylesheets are placed in css/parts folder so they can be concatenated later.
             dev: {
                 options: {
                     sassDir: 'scss',
@@ -190,29 +212,31 @@ module.exports = function(grunt) {
             }
         },
 
-
+        // Trigger tasks on save
         watch: {
             // enable livereload. See followeing link for browser extensions
             // http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
             options: { livereload: true },
+            // when a source or a lib change in js folder, merge them together, then minify the concatenated file.
+            // If no errors, notify success.
             scripts: {
-                // when a source or a lib change in js folder, merge them together, then minify the concatenated file.
-                // If no errors, notify success.
                 files: ['js/src/*.js', 'js/lib/**/*.js'],
                 tasks: ['modernizr','concat:script_dev','concat:script_build', 'uglify','notify:script'],
                 options: {
                     spawn: false
                 }
             },
-
+            // when anything change in scss folder, compile evrerything in css staging folder then concatenate.
+            // If no errors, notify success.
             css: {
-                files: ['scss/*.scss', 'css/parts/*.css', '<%%= bootstrapAssets %>/*.scss'],
+                files: ['scss/**/*.scss', 'css/parts/*.css', '<%%= bootstrapAssets %>/*.scss'],
                 tasks: ['sass:dev','sass:build','compass:dev','concat:css_dev','concat:css_build','notify:css'],
                 options: {
                     spawn: false
                 }
             },
-
+            // when a .svg is modified, optimize it and create a .png fallback.
+            // If no errors, notify success.
             svg: {
                 files: ['img/src/**/*.svg'],
                 tasks: ['svgmin','svg2png','notify:images'],
@@ -220,13 +244,14 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             },
-
+            // reload browser when .css or template changes
             livereload: {
                 options: { livereload: true },
                 files: ['css/**/*', '*.{html,php,tpl}']
             }
         },
 
+        // Notification messages
         notify: {
             css: {
                 options: {
@@ -248,7 +273,12 @@ module.exports = function(grunt) {
             }
         },
 
-
+        // copy task is used during scaffolding with Yeoman.
+        // Please be aware that running this task during development WILL OVERWRITE following files
+        // - scss/bootstrap/bootstrap.scss
+        // - scss/bootstrap/_variables.scss
+        // - js/lib/twbs_js/*.js
+        // - scss/fontawesome/_variables.scss
         copy: {
             <% if (includeBootstrap) { %>
             bootstrap_css: {
@@ -279,23 +309,8 @@ module.exports = function(grunt) {
 
     });
 
-    // 3. Where we tell Grunt we plan to use this plug-in.
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-svgmin');
-    grunt.loadNpmTasks('grunt-svg2png');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-notify');
 
-    <% if(includeModernizr){ %>grunt.loadNpmTasks("grunt-modernizr");<% } %>
-
-    grunt.loadNpmTasks('grunt-contrib-copy');
-
-    // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
+    // Task registration
     grunt.registerTask('default', [
         'watch'
     ]);

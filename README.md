@@ -81,6 +81,32 @@ Scaffolds out a complete project directory structure like the following (element
 ```
 ### Stylesheet workflow
 *coming soon*
+#### main.scss
+90% of your styling rules wil be defined here as well as all of your @imports. It's the main source stylesheet which will be finally compiled. Since the principal aim is to balance files size and http requests, you can choose either to merge your stylesheet with bootstrap or keep them apart by commenting the following line (default):
+
+```
+//@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
+```
+
+Please read the **Bootstrap** section to learn more about pros and cons of merging Bootstrap in your stylesheet.
+
+#### @imports
+There's a bunch of `_underscored.scss` files that help to structure your css workflow:
+
+**_setup.scss** *coming soon*
+
+**_reset.scss** Eric Meyer's reset.css, plus custom anchor text color reset rule. Please note that reset.css will override normalize.css included in Bootstrap. Please comment `@import 'reset';` if you wish to mantain bootstrap typography and spacing.
+
+**_palette.scss** Colors variables definition goes here. Comes with a bunch of useful well known brands colors.
+
+**_variables.scss** *coming soon*
+
+**_mixins.scss** *coming soon*
+
+**_animations.scss** *coming soon*
+
+**_fallbacks.scss** *coming soon*
+
 #### Bootstrap
 *coming soon*
 

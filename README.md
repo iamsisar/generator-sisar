@@ -97,9 +97,9 @@ There's a bunch of `_underscored.scss` files that help to structure your css wor
 
 **_reset.scss** Eric Meyer's reset.css, plus custom anchor text color reset rule. Please note that reset.css will override normalize.css included in Bootstrap. Please comment `@import 'reset';` if you wish to mantain bootstrap typography and spacing.
 
-**_palette.scss** Colors variables definition goes here. Comes with a bunch of useful well known brands colors.
+**_palette.scss** Colors variables definition goes here. Comes with a bunch of useful well known brands colors. Except for brand colors, you'll want to name your palette variables by hue name (e.g. `$fandango-pink`) rather then their final usage (e.g. `$barbie-title`) in order to keep your code highly maintainable. Please use `_variables.scss` to couple your colors with their usage.
 
-**_variables.scss** *coming soon*
+**_variables.scss** Any other variable you'd like to define goes here. Re-declaring a Bootstrap variable it will be overridden with the new value (e.g. `$grid-columns: 8`)
 
 **_mixins.scss** *coming soon*
 

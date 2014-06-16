@@ -80,7 +80,7 @@ Scaffolds out a complete project directory structure like the following (element
     └── main.scss
 ```
 ### Stylesheet workflow
-90% of your styling rules wil be defined in `main.scss` as well as all of your `@import` rules. It's the main source stylesheet which will be finally compiled. Since the principal aim is to balance files size and http requests, you can choose either to merge your stylesheet with bootstrap or keep them apart by commenting the following line (default):
+Most of your styling rules wil be defined in `main.scss` as well as all of your `@import` rules. This is the main stylesheet that will be eventually compiled. Since the principal aim is to balance files size and http requests, you can choose either to merge your stylesheet with bootstrap or keep them apart. Please uncomment the following line if you plan to merge them together:
 
 ```
 //@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';

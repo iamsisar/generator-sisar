@@ -80,9 +80,7 @@ Scaffolds out a complete project directory structure like the following (element
     └── main.scss
 ```
 ### Stylesheet workflow
-*coming soon*
-#### main.scss
-90% of your styling rules wil be defined here as well as all of your @imports. It's the main source stylesheet which will be finally compiled. Since the principal aim is to balance files size and http requests, you can choose either to merge your stylesheet with bootstrap or keep them apart by commenting the following line (default):
+90% of your styling rules wil be defined in `main.scss` as well as all of your `@import` rules. It's the main source stylesheet which will be finally compiled. Since the principal aim is to balance files size and http requests, you can choose either to merge your stylesheet with bootstrap or keep them apart by commenting the following line (default):
 
 ```
 //@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
@@ -102,15 +100,12 @@ There's a bunch of `_underscored.scss` files that help to structure your css wor
 - **_variables.scss** Any other variable you'd like to define goes here. Re-declaring a Bootstrap variable it will be overridden with the new value (e.g. `$grid-columns: 8`)
 
 - **_mixins.scss** Your magical functions ad `@mixin` directives are defined here. Comes with some useful stuff such as:
-  - FontAwesome shorthand
-  - pure css custom checkbox/radio button
-  - css only triangles
-  - smooth transition snippet
-  - media queries breakpoint($size) shorthand (uses Bootstrap variables. Please declare in `_variables.scss` if you're not using Bootstrap)
+  - FontAwesome shorthand (e.g. `@include icon($fa-var-anchor`. See above to **FontAwesome** for explaination)
+  - media queries shorthand (e.g. `@include breakpoint(sm){ ... }`. See above to **Responsive approach** for explaination)
 
-- **_animations.scss** *coming soon*
+- **_animations.scss** Bibbidi-bobbidi-rules goes here
 
-- **_fallbacks.scss** *coming soon*
+- **_fallbacks.scss** If you're planning to use Modernizr, this is a good place to put your you fallback rules.
 
 #### Bootstrap
 *coming soon*

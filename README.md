@@ -45,22 +45,22 @@ Scaffolds out a complete project directory structure like the following (element
 ├── bower.json
 ├── package.json
 ├── config.rb
-|
-| ///// compiled css staging area
+│
+│ ///// compiled css staging area
 ├── css
 │   └── parts
-|
-| ///// graphical assets directory
+│
+│ ///// graphical assets directory
 ├── img
 │   └── src
-|
-| ///// javascripts
+│
+│ ///// javascripts
 ├── js
 │   ├── lib
 │   │   └── (twbs_js)
 │   └── src
-|
-| ///// stylesheets SASS source files
+│
+│ ///// stylesheets SASS source files
 └── scss
     ├── _animations.scss
     ├── _fallbacks.scss
@@ -97,18 +97,22 @@ There's a bunch of `_underscored.scss` files that help to structure your css wor
 
 - **_palette.scss** Colors variables definition goes here. Comes with a bunch of useful well known brands colors. Except for brand colors, you'll want to name your palette variables by hue name (e.g. `$fandango-pink`) rather then their usage (e.g. `$love-letter-bg`) in order to keep your code highly maintainable. Please use `_variables.scss` to pair your colors with their usage.
 
-- **_variables.scss** Any other variable you'd like to define goes here. Re-declaring a Bootstrap variable it will be overridden with the new value (e.g. `$grid-columns: 8`)
+- **_variables.scss** Any other variable you'd like to define goes here. Re-declaring a Bootstrap variable it will be overridden with the new value (e.g. `$grid-columns: 8`).
 
 - **_mixins.scss** Your magical functions ad `@mixin` directives are defined here. Comes with some useful stuff such as:
-  - FontAwesome shorthand (e.g. `@include icon($fa-var-anchor`. See above to **FontAwesome** for explaination)
-  - media queries shorthand (e.g. `@include breakpoint(sm){ ... }`. See above to **Responsive approach** for explaination)
+  - FontAwesome shorthand (e.g. `@include icon($fa-var-anchor`. Please refer to **FontAwesome** for explaination)
+  - media queries shorthand (e.g. `@include breakpoint(sm){ ... }`. Please refer to **Responsive approach** for explaination)
 
-- **_animations.scss** Bibbidi-bobbidi-rules goes here
+- **_animations.scss** Bibbidi-bobbidi-rules go here.
 
 - **_fallbacks.scss** If you're planning to use Modernizr, this is a good place to put your you fallback rules.
 
 #### Bootstrap
 *coming soon*
+
+#### FontAwesome
+*coming soon*
+
 
 ### Javascript workflow
 *coming soon*

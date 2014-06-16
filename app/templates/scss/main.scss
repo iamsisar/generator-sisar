@@ -27,17 +27,19 @@
 
 // Compass
 @import 'compass/css3';
-
+<% if (includeBootstrap) { %>
 // Bootstrap
 @import 'bootstrap/variables';
 @import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/mixins';
 
 // Bootstrap - enable columns placeholder selectors (e.g. %col-sm-6)
-@import 'bootstrap/custom-grid-extend';
+@import 'bootstrap/custom-ext-grid';
+// Bootstrap - enable responsive utilities placeholder selectors (e.g. %visible-md-block)
+@import 'bootstrap/custom-ext-responsive-utilities';
 
 // Bootstrap - would you merge bootstrap in your css?
 //@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
-
+<% } %>
 // FontAwesome
 @import 'fontawesome/variables';
 @import '../bower_components/fontawesome/scss/mixins';

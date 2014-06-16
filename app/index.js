@@ -155,11 +155,10 @@ var SisarGenerator = yeoman.generators.Base.extend({
     this.mkdir('img');
     this.mkdir('img/src');
 
-    this.mkdir('scss');
+    this.directory('scss', 'scss');
 
     if ( this.includeBootstrap ){
-      this.mkdir('scss/bootstrap');
-      this.copy('scss/bootstrap/_custom-grid-extend.scss', 'scss/bootstrap/_custom-grid-extend.scss');
+      this.directory('scss-bootstrap','scss/bootstrap');
     }
     if ( this.includeFontawesome ){
       this.mkdir('scss/fontawesome');
@@ -170,7 +169,6 @@ var SisarGenerator = yeoman.generators.Base.extend({
     this.template('Gruntfile.js', 'Gruntfile.js');
     this.copy('_config.rb', 'config.rb');
 
-    this.directory('scss', 'scss');
     this.template('scss/main.scss', 'scss/main.scss');
   },
 

@@ -113,7 +113,7 @@ While any other `.scss` is compiled through Compass, Bootstrap relies on standar
 #### FontAwesome
 Similar to Bootstrap, even FontAwesome has been partially included in `mains.scss` enabling the `@include icon()` shorthand defined in `_mixins.scss`.
 
-This allow you to embed in your stylesheet only the definitions you need whithout requesting the entire FontAwesome css in your document.
+This allow you to define in your stylesheet only the rules you need whithout embedding FontAwesome css in your document and keeping your markup semantic.
 
 > `@include icon($icon, $where)`
 

@@ -113,8 +113,6 @@ While any other `.scss` is compiled through Compass, Bootstrap relies on standar
 #### FontAwesome
 Similar to Bootstrap, even FontAwesome has been partially included in `mains.scss` allowing you tu use the shorthand `@include icon()` defined in `_mixins.scss`.
 
-###### How to use FontAwesome shorthand
-
 > @include icon($icon, $where)
 
 - `$icon` is the unicode character. You can find all the definitions in `scss/fontawesome/variables`. By default the name is `$fa-var-{icon-name}`, you'll want to refer to [FontAwesome cheatsheet]http://fortawesome.github.io/Font-Awesome/cheatsheet/ for a list of icon names.

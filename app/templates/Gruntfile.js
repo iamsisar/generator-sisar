@@ -37,7 +37,20 @@ module.exports = function(grunt) {
                 src: [
                     // libraries
                     'js/lib/modernizr-<%%= pkg.name %>.js',
-                    'js/lib/**/!(modernizr-<%%= pkg.name %>|_*).js',
+                    'js/lib/<% if (includeBootstrap) {  %>!(twbs_js)/<% } %>**/!(modernizr-<%%= pkg.name %>|_*).js',<% if (includeBootstrap) {  %>
+                    // Bootstrap need to be built in a specific order not to break your script -.-
+                    'js/lib/twbs_js/transition.js',
+                    'js/lib/twbs_js/alert.js',
+                    'js/lib/twbs_js/button.js',
+                    'js/lib/twbs_js/carousel.js',
+                    'js/lib/twbs_js/collapse.js',
+                    'js/lib/twbs_js/dropdown.js',
+                    'js/lib/twbs_js/modal.js',
+                    'js/lib/twbs_js/tooltip.js',
+                    'js/lib/twbs_js/popover.js',
+                    'js/lib/twbs_js/scrollspy.js',
+                    'js/lib/twbs_js/tab.js',
+                    'js/lib/twbs_js/affix.js',<% } %>
                     // sources
                     'js/src/!(script).js',
                     'js/src/script.js'
@@ -52,7 +65,19 @@ module.exports = function(grunt) {
             script_build: {
                 src: [
                     'js/lib/modernizr-<%%= pkg.name %>.js',
-                    'js/lib/**/!(modernizr-<%%= pkg.name %>|_*).js',
+                    'js/lib/<% if (includeBootstrap) {  %>!(twbs_js)/<% } %>**/!(modernizr-<%%= pkg.name %>|_*).js',<% if (includeBootstrap) {  %>
+                    'js/lib/twbs_js/transition.js',
+                    'js/lib/twbs_js/alert.js',
+                    'js/lib/twbs_js/button.js',
+                    'js/lib/twbs_js/carousel.js',
+                    'js/lib/twbs_js/collapse.js',
+                    'js/lib/twbs_js/dropdown.js',
+                    'js/lib/twbs_js/modal.js',
+                    'js/lib/twbs_js/tooltip.js',
+                    'js/lib/twbs_js/popover.js',
+                    'js/lib/twbs_js/scrollspy.js',
+                    'js/lib/twbs_js/tab.js',
+                    'js/lib/twbs_js/affix.js',<% } %>
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],

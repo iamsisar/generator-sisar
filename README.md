@@ -86,8 +86,6 @@ Most of your styling rules wil be defined in `main.scss` as well as all of your 
 //@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
 ```
 
-Please read the **Bootstrap** section to learn more about pros and cons of merging Bootstrap in your stylesheet.
-
 #### @import partials
 There's a bunch of `_underscored.scss` files that help to structure your css workflow:
 
@@ -108,11 +106,27 @@ There's a bunch of `_underscored.scss` files that help to structure your css wor
 - **_fallbacks.scss** If you're planning to use Modernizr, this is a good place to put your you fallback rules.
 
 #### Bootstrap
-*coming soon*
+As mentioned above, you can choose either to compile Bootstrap separately or merge it with your stylesheet. In both cases *variables* and *mixins* are included in `main.scss` as well as @extend-only porting of *grid* and *responsive utilities*. This is useful if you want to keep your markup as clean as possible and DRY out your style.
+
+While any other `.scss` is compiled through Compass, Bootstrap relies on standard SASS. You can choose which modules to include by commenting out the correspondent lines in `scss/bootstrap/bootstrap.scss`.
 
 #### FontAwesome
-*coming soon*
+Similar to Bootstrap, even FontAwesome has been partially included in `mains.scss` allowing you tu use the shorthand `@include icon()` defined in `_mixins.scss`.
 
+###### How to use FontAwesome shorthand
+
+> @include icon($icon, $where)
+
+- `$icon` is the unicode character. You can find all the definitions in `scss/fontawesome/variables`. By default the name is `$fa-var-{icon-name}`, you'll want to refer to [FontAwesome cheatsheet]http://fortawesome.github.io/Font-Awesome/cheatsheet/ for a list of icon names.
+- `$where` deafult: `before`. You can alter the generated pseudo element for the icon choosing `:before` or `:after`
+
+Example:
+
+```scss
+.selector{
+    @include icon($fa-var-anchor, after)
+}
+```
 
 ### Javascript workflow
 *coming soon*

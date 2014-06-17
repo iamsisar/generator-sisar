@@ -111,7 +111,9 @@ As mentioned above, you can choose either to compile Bootstrap separately or mer
 While any other `.scss` is compiled through Compass, Bootstrap relies on standard SASS. You can choose which modules to include by commenting out the correspondent lines in `scss/bootstrap/bootstrap.scss`.
 
 #### FontAwesome
-Similar to Bootstrap, even FontAwesome has been partially included in `mains.scss` allowing you tu use the shorthand `@include icon()` defined in `_mixins.scss`.
+Similar to Bootstrap, even FontAwesome has been partially included in `mains.scss` enabling the `@include icon()` shorthand defined in `_mixins.scss`.
+
+This allow you to embed in your stylesheet only the definitions you need whithout requesting the entire FontAwesome css in your document.
 
 > `@include icon($icon, $where)`
 
@@ -121,10 +123,35 @@ Similar to Bootstrap, even FontAwesome has been partially included in `mains.scs
 Example:
 
 ```scss
-.selector{
+.anchor{
     @include icon($fa-var-anchor, 'after')
 }
+
+.bars{
+    @include icon($fa-var-bars)
+}
 ```
+will generate:
+```css
+.fa, .anchor:after, .bars:before {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.anchor:after {
+    content: "\f13d";
+}
+
+.bars:before {
+    content: "\f0c9";
+}
+```
+
 
 ### Javascript workflow
 *coming soon*

@@ -124,7 +124,7 @@ Example:
 
 ```scss
 .selector{
-    @include icon($fa-var-anchor, after)
+    @include icon($fa-var-anchor, 'after')
 }
 ```
 

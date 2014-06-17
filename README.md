@@ -117,7 +117,7 @@ This allow you to define in your stylesheet only the rules you need whithout emb
 
 > `@include icon($icon, $where)`
 
-- `$icon` is the unicode character. You can find all the definitions in `scss/fontawesome/variables`. By default the name is `$fa-var-{icon-name}`, you'll want to refer to [FontAwesome cheatsheet]http://fortawesome.github.io/Font-Awesome/cheatsheet/ for a list of icon names.
+- `$icon` is the unicode character. You can find all the definitions in `scss/fontawesome/variables`. By default the name is `$fa-var-{icon-name}`, you'll want to refer to [FontAwesome cheatsheet](http://fortawesome.github.io/Font-Awesome/cheatsheet/) for a list of icon names.
 - `$where` deafult: `before`. You can alter the generated pseudo element for the icon choosing `:before` or `:after`
 
 Example:

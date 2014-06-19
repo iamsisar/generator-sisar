@@ -87,7 +87,6 @@ Most of your styling rules wil be defined in `main.scss` as well as all of your 
 ```
 
 #### @import partials
-There's a bunch of `_underscored.scss` files that help to structure your css workflow:
 
 - **_setup.scss** *coming soon*
 
@@ -109,6 +108,10 @@ There's a bunch of `_underscored.scss` files that help to structure your css wor
 As mentioned above, you can choose either to compile Bootstrap separately or merge it with your stylesheet. In both cases *variables* and *mixins* are included in `main.scss` as well as @extend-only porting of *grid* and *responsive utilities*. This is useful if you want to keep your markup as clean as possible and DRY out your style.
 
 While any other `.scss` is compiled through Compass, Bootstrap relies on standard SASS. You can choose which modules to include by commenting out the correspondent lines in `scss/bootstrap/bootstrap.scss`.
+
+Bootstrap javascript components are concatenated in your script by default. Due to components dependencies, the concatenation order is specified in the `Gruntfile.js`. To remove component you don't need you can either:
+- rename unecessary sript prepending an `_` to the filname (recomended)
+- edit the `Gruntfile.js` directly
 
 #### FontAwesome
 Similar to Bootstrap, even FontAwesome has been partially included in `mains.scss` enabling the `@include icon()` shorthand defined in `_mixins.scss`.
@@ -151,12 +154,15 @@ will generate:
     content: "\f0c9";
 }
 ```
+### Responsive approach
+The *media query shorthand* defined in `_mixins.scss` offers a less verbose way to develop your responsive layout and follow a *mobile first* principle (`min-width` media queries).
 
+A deprecated version that uses `max-width` mq has been left commented out in the `mixin`. If you choose to use it instead of the *mobile first* version, you are supposed to know what you're doing.
 
 ### Javascript workflow
 *coming soon*
 #### Modernizr
-*coming soon*
+Based on you js calls an custom build of Modernizr will be compiled when you save your javascripts.
 
 ## What is Yeoman?
 

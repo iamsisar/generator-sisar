@@ -209,8 +209,8 @@ module.exports = function(grunt) {
                     style: 'compact'
                 },
                 files: {
-                    'css/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
-                    'css/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'
+                    <% if (includeBootstrap) { %>'css/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
+                    <% } if (includeFontawesome) { %>'css/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'<% } %>
                 }
             },
             // Build folder
@@ -219,8 +219,8 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    '<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
-                    '<%%= buildPath %>/<%%= cssFolder %>/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'
+                    <% if (includeBootstrap) { %>'<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
+                    <% } if (includeFontawesome) { %>'<%%= buildPath %>/<%%= cssFolder %>/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'<% } %>
                 }
             }
         },

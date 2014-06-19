@@ -94,8 +94,24 @@
     }
   }
 }
+<% if (!includeBootstrap) { %>
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
 
-
+@mixin img-responsive($display: block) {
+  display: $display;
+  max-width: 100%;
+  height: auto;
+}
+<% } %>
 //* = smooth transitions
 //----------------------------------------------- */
 @mixin smooth{
@@ -109,7 +125,7 @@
 %inline-block{
 	@include inline-block;
 }
-
+<% if (includeBootstrap) { %>
 %container{
 	@include container-fixed;
 	position:relative;
@@ -121,9 +137,7 @@
 %row{
   @include make-row;
 }
-
-
-
+<% } %>
 //* = Breakpoints
 //----------------------------------------------- */
 
@@ -132,16 +146,16 @@
     @media screen and (min-width: $screen-lg) { @content; }
   }
   @else if $point == md {
-    // @media screen and( min-width: $screen-md ) and (max-width: $screen-md-max) { @content; }
-    @media screen and( min-width: $screen-md ) { @content; }
+    // @media screen and( min-width: $screen-md ) and (max-width: $screen-md-max) { @content; } // DEPRECATED
+    @media screen and( min-width: $screen-md ) { @content; } // Mobile First
   }
   @else if $point == sm {
-    // @media screen and (max-width: $screen-sm-max) { @content; }
-    @media screen and (min-width: $screen-sm) { @content; }
+    // @media screen and (max-width: $screen-sm-max) { @content; } // DEPRECATED
+    @media screen and (min-width: $screen-sm) { @content; } // Mobile First
   }
   @else if $point == xs {
-    // @media screen and (max-width: $screen-xs-max) { @content; }
-    @media screen and (min-width: $screen-xs) { @content; }
+    // @media screen and (max-width: $screen-xs-max) { @content; } // DEPRECATED
+    @media screen and (min-width: $screen-xs) { @content; } // Mobile First
   }
   @else if $point == phone {
     @media screen and (max-width: $screen-xs) { @content; }

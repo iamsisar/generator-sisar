@@ -246,7 +246,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             scripts: {
                 files: ['js/src/*.js', 'js/lib/**/*.js'],
-                tasks: ['modernizr','concat:script_dev','concat:script_build', 'uglify','notify:script'],
+                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script_dev','concat:script_build', 'uglify','notify:script'],
                 options: {
                     spawn: false
                 }

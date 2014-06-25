@@ -1,15 +1,24 @@
 <!doctype html>
+<!--[if IE 7]>
+<html class="ie ie7">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8) ]><!-->
 <html>
+<!--<![endif]-->
 <head>
-	<title><%= projectTitle  %></title>
-
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width">
 
-	<% if (includeBootstrap) {  %><link rel="stylesheet" href="css/bootstrap.css"><% } %>
+	<title><%= projectTitle  %></title>
+	<% if (includeBootstrap) {  %>
+	<link rel="stylesheet" href="css/bootstrap.css"><% } %>
 	<link rel="stylesheet" href="css/style.css">
 	<!--[if IE 8]><link rel="stylesheet" href="css/ie.css"><![endif]-->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/<%= projectTitle  %>/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/<%= jqueryVersion  %>/jquery.min.js"></script>
 
 	<script src="js/script.js" type="text/javascript" charset="utf-8"></script>
 </head>

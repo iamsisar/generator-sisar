@@ -169,6 +169,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
     this.template('_package.json', 'package.json');
     this.template('_bower.json', 'bower.json');
     this.template('Gruntfile.js', 'Gruntfile.js');
+    this.template('head.html', 'head.html');
     this.copy('_config.rb', 'config.rb');
 
     this.template('scss/main.scss', 'scss/main.scss');

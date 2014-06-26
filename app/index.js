@@ -23,11 +23,9 @@ var SisarGenerator = yeoman.generators.Base.extend({
   },
 
   done: function () {
-    if ( this.includeBootstrap || this.includeFontawesome ){
       this.on('dependenciesInstalled', function() {
         this.spawnCommand('grunt', ['copy']);
       });
-    }
   },
 
   askFor: function () {
@@ -152,7 +150,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
     this.mkdir('js');
     this.mkdir('js/lib');
-    this.mkdir('js/src');
+    this.directory('js/src','js/src');
 
     this.mkdir('img');
     this.mkdir('img/src');

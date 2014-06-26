@@ -14,11 +14,11 @@
 
 	<title><%= projectTitle  %></title>
 	<% if (includeBootstrap) {  %>
-	<link rel="stylesheet" href="css/bootstrap.css"><% } %>
-	<link rel="stylesheet" href="css/style.css">
-	<!--[if IE 8]><link rel="stylesheet" href="css/ie.css"><![endif]-->
+	<link rel="stylesheet" href="<%= buildPath  %>/<%= cssFolder  %>/bootstrap.css"><% } %>
+	<link rel="stylesheet" href="<%= buildPath  %>/<%= cssFolder  %>/style.css">
+	<!--[if IE 8]><link rel="stylesheet" href="<%= buildPath  %>/<%= cssFolder  %>/ie.css"><![endif]-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/<%= jqueryVersion  %>/jquery.min.js"></script>
 
-	<script src="js/script.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<%= buildPath  %>/<%= jsFolder  %>/script.js" type="text/javascript" charset="utf-8"></script>
 </head>

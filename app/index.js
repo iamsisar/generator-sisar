@@ -65,19 +65,19 @@ var SisarGenerator = yeoman.generators.Base.extend({
       name: 'Bootstrap (bootstrap-sass)',
       value: 'includeBootstrap',
       checked: true
-	    },
-			{
+      },
+      {
       name: 'FontAwesome',
       value: 'includeFontawesome',
       checked: true
-	    },
-	    {
+      },
+      {
       name: 'Modernizr',
       value: 'includeModernizr',
       checked: true
-	    }
-	  ]
-  	},
+      }
+    ]
+    },
     {
       name: 'buildPath',
       message: 'Please enter the relative path to the build root',
@@ -106,6 +106,17 @@ var SisarGenerator = yeoman.generators.Base.extend({
     {
       name: 'googlefonts',
       message: 'Any particular Google Web Font to use?.\nSpecify fonts name separated by pipes and replace whitespaces with pluses./n(Eg. Lato|Droid+Sans . Leave blank if not desired.)',
+    },
+    {
+    type: 'checkbox',
+    name: 'tools',
+    message: 'Would you like some other tool?',
+    choices: [{
+      name: 'JS Hint',
+      value: 'includeJshint',
+      checked: false
+      }
+    ]
     }
 
 
@@ -113,13 +124,15 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (answers) {
 
-	    var ingredients = answers.ingredients;
-	    function hasFeature(feat) { return ingredients.indexOf(feat) !== -1; }
+      var ingredients = answers.ingredients;
+      var tools = answers.tools;
+	    function hasFeature(group,feat) { return group.indexOf(feat) !== -1; }
 
-	    this.includeModernizr = hasFeature('includeModernizr');
-	    this.includeBootstrap = hasFeature('includeBootstrap');
-      this.includeFontawesome = hasFeature('includeFontawesome');
-      this.googlefonts = hasFeature('googlefonts');
+	    this.includeModernizr = hasFeature(ingredients,'includeModernizr');
+	    this.includeBootstrap = hasFeature(ingredients,'includeBootstrap');
+      this.includeFontawesome = hasFeature(ingredients,'includeFontawesome');
+      this.googlefonts = hasFeature(ingredients,'googlefonts');
+      this.includeJshint = hasFeature(tools,'includeJshint');
 
       this.authorName = answers.authorName;
       this.projectTitle = answers.projectTitle;
@@ -175,7 +188,10 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
   projectfiles: function () {
     this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
+
+    if( this.includeJshint ){
+      this.copy('jshintrc', '.jshintrc');
+    }
   }
 
 });

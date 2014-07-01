@@ -129,7 +129,15 @@ module.exports = function(grunt) {
                 src: 'js/script.js',
                 dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
             }
-        },
+        },<% if (includeJshint) { %>
+
+        jshint: {
+            options: {
+                jshintrc: true,
+            },
+            sources: ['js/src/**/*.js'],
+            grunt: ['Gruntfile.js']
+        },<% } %>
 
         // Optimize .svg files
         // Original images must be placed in src folder
@@ -246,7 +254,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             scripts: {
                 files: ['js/src/*.js', 'js/lib/**/*.js'],
-                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script_dev','concat:script_build', 'uglify','notify:script'],
+                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script_dev','concat:script_build',<% if (includeJshint) { %>'jshint:sources',<% } %>'uglify','notify:script'],
                 options: {
                     spawn: false
                 }

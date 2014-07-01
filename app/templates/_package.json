@@ -6,8 +6,8 @@
 	"private": true,
 	"description": "<%= projectDescription %>",
 	"node_version": ">= 0.8.0",
-	"devDependencies": {
-	    "grunt-contrib-jshint": "~0.10.0",
+	"devDependencies": {<% if(includeJshint){ %>
+	    "grunt-contrib-jshint": "~0.10.0",<% } %>
 	    "grunt-contrib-uglify": "~0.5.0",
 	    "grunt-contrib-concat": "~0.4.0",<% if(includeModernizr){ %>
 	    "grunt-modernizr": "~0.5.2",<% } %>

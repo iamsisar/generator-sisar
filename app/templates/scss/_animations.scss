@@ -1,6 +1,24 @@
+//* = Transition Durations
+//----------------------------------------------- */
+
+%transition-duration-01{ @include transition-duration(.1s) }
+%transition-duration-02{ @include transition-duration(.2s) }
+%transition-duration-03{ @include transition-duration(.3s) }
+%transition-duration-04{ @include transition-duration(.4s) }
+%transition-duration-05{ @include transition-duration(.5s) }
+%transition-duration-1{ @include transition-duration(1s) }
+
+//* = Transition Timings
+//----------------------------------------------- */
+
+%transition-timing-function-linear{ @include transition-timing-function(linear) }
+
+//* = Transitions
+//----------------------------------------------- */
+
 .container{
   @include transition-property(max-width, width);
   @include transition-duration(.3s);
-  @include transition-timing-function(linear); 
+  @include transition-timing-function(linear);
 }
 

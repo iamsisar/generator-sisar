@@ -36,8 +36,7 @@ module.exports = function(grunt) {
                 // 4. script.js
                 src: [
                     // libraries
-                    'js/lib/modernizr-<%%= pkg.name %>.js',
-                    'js/lib/<% if (includeBootstrap) {  %>!(twbs_js)/<% } %>**/!(modernizr-<%%= pkg.name %>|_*).js',<% if (includeBootstrap) {  %>
+                    'js/lib/modernizr-<%%= pkg.name %>.js',<% if (includeBootstrap) {  %>
                     // Bootstrap need to be built in a specific order not to break your script -.-
                     'js/lib/twbs_js/transition.js',
                     'js/lib/twbs_js/alert.js',
@@ -51,6 +50,7 @@ module.exports = function(grunt) {
                     'js/lib/twbs_js/scrollspy.js',
                     'js/lib/twbs_js/tab.js',
                     'js/lib/twbs_js/affix.js',<% } %>
+                    'js/lib/**/*.js',
                     // sources
                     'js/src/!(script).js',
                     'js/src/script.js'
@@ -64,8 +64,7 @@ module.exports = function(grunt) {
             // Same as above, but save result in build folder
             script_build: {
                 src: [
-                    'js/lib/modernizr-<%%= pkg.name %>.js',
-                    'js/lib/<% if (includeBootstrap) {  %>!(twbs_js)/<% } %>**/!(modernizr-<%%= pkg.name %>|_*).js',<% if (includeBootstrap) {  %>
+                    'js/lib/modernizr-<%%= pkg.name %>.js',<% if (includeBootstrap) {  %>
                     'js/lib/twbs_js/transition.js',
                     'js/lib/twbs_js/alert.js',
                     'js/lib/twbs_js/button.js',
@@ -78,6 +77,7 @@ module.exports = function(grunt) {
                     'js/lib/twbs_js/scrollspy.js',
                     'js/lib/twbs_js/tab.js',
                     'js/lib/twbs_js/affix.js',<% } %>
+                    'js/lib/**/*.js',
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],

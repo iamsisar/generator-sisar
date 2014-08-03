@@ -19,6 +19,13 @@
 //* = Setup
 //----------------------------------------------- */
 
+// Variables
+<% if (includeBootstrap) { %>
+@import 'bootstrap/variables';
+<% } %>
+@import 'palette';
+@import 'variables';
+
 // Setup
 @import 'setup';
 
@@ -28,8 +35,7 @@
 // Compass
 @import 'compass/css3';
 <% if (includeBootstrap) { %>
-// Bootstrap
-@import 'bootstrap/variables';
+// Bootstrap - mixins
 @import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/mixins';
 
 // Bootstrap - enable columns placeholder selectors (e.g. %col-sm-6)
@@ -47,9 +53,7 @@
 @import '../bower_components/fontawesome/scss/core';
 <% } %>
 // Custom
-@import 'variables';
 @import 'mixins';
-@import 'palette';
 
 
 //* = Typography

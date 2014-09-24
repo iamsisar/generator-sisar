@@ -6,7 +6,7 @@
 	"private": true,
 	"description": "<%= projectDescription %>",
 	"node_version": ">= 0.8.0",
-	"devDependencies": {<% if(includeJshint){ %>
+	"devDependencies": {<% if(useJshint){ %>
 	    "grunt-contrib-jshint": "~0.10.0",<% } %>
 	    "grunt-contrib-uglify": "~0.5.0",
 	    "grunt-contrib-concat": "~0.4.0",<% if(includeModernizr){ %>
@@ -19,6 +19,8 @@
 	    "grunt-contrib-compass": "~0.8.0",
 	    "grunt-notify": "~0.3.0",
 	    "grunt-contrib-copy": "~0.5.0",
-	    "load-grunt-tasks": "~0.5.0"
+	    "load-grunt-tasks": "~0.5.0",<% if(useHaml){ %>
+	    "grunt-contrib-haml": "~0.2.0",<% } if(useGruntConnect){ %>
+	    "grunt-contrib-connect": "~0.8.0"<% } %>
 	}
 }

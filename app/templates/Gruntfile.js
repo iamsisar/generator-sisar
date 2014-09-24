@@ -21,10 +21,23 @@ module.exports = function(grunt) {
         jsFolder    : '<%= jsFolder %>',
         cssFolder   : '<%= cssFolder %>',
         imgFolder   : '<%= imgFolder %>',
+        fontsFolder : '<%= fontsFolder %>',
         <% if (includeBootstrap) {  %>
         bootstrapAssets     : 'scss/bootstrap',<% }
         if (includeFontawesome) { %>
         fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
+        <% if (useGruntConnect) {  %>
+        // Grunt connect
+        connect: {
+            server: {
+                options: {
+                    port: <%= gruntConnectPort %>,
+                    hostname: '*',
+                    base : '<%%= buildPath %>',
+                    livereload : true
+                }
+            }
+        },<% } %>
 
         // Javascript and css concatenation
         concat: {
@@ -129,7 +142,7 @@ module.exports = function(grunt) {
                 src: 'js/script.js',
                 dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
             }
-        },<% if (includeJshint) { %>
+        },<% if (useJshint) { %>
 
         jshint: {
             options: {
@@ -245,6 +258,20 @@ module.exports = function(grunt) {
             }
         },
 
+        // Haml
+        haml: {
+            dev: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'index.html': [
+                        'haml/index.haml'
+                    ]
+                }
+            }
+        },
+
         // Trigger tasks on save
         watch: {
             // enable livereload. See followeing link for browser extensions
@@ -254,7 +281,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             scripts: {
                 files: ['js/src/*.js', 'js/lib/**/*.js'],
-                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script_dev','concat:script_build',<% if (includeJshint) { %>'jshint:sources',<% } %>'uglify','notify:script'],
+                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script_dev','concat:script_build',<% if (useJshint) { %>'jshint:sources',<% } %>'uglify','notify:script'],
                 options: {
                     spawn: false
                 }
@@ -267,7 +294,16 @@ module.exports = function(grunt) {
                 options: {
                     spawn: false
                 }
-            },
+            },<% if (useHaml) { %>
+            // when anything change in haml folder, compile.
+            // If no errors, notify success.
+            haml: {
+                files: ['haml/**/*.haml'],
+                tasks: ['haml','notify:template'],
+                options: {
+                    spawn: false
+                }
+            },<% } %>
             // when a .svg is modified, optimize it and create a .png fallback.
             // If no errors, notify success.
             svg: {
@@ -280,7 +316,7 @@ module.exports = function(grunt) {
             // reload browser when .css or template changes
             livereload: {
                 options: { livereload: true },
-                files: ['css/**/*', '*.{html,php,tpl}']
+                files: ['css/**/*', '*.{html,php,tpl,haml}']
             }
         },
 
@@ -303,7 +339,13 @@ module.exports = function(grunt) {
                     title: 'Task Complete',
                     message: 'All images have been optimized/compressed',
                 }
-            }
+            },
+            template: {
+                options: {
+                    title: 'Templates processed',
+                    message: 'All template files has been processed succesfully',
+                }
+            },
         },
 
         // copy task is used during scaffolding with Yeoman.
@@ -334,8 +376,16 @@ module.exports = function(grunt) {
                 dest: 'js/lib/twbs_js/'
             },<% } if (includeFontawesome) { %>
             fontawesome: {
-                src: 'bower_components/fontawesome/scss/_variables.scss',
-                dest: 'scss/fontawesome/_variables.scss',
+                files: [{
+                    src: 'bower_components/fontawesome/scss/_variables.scss',
+                    dest: 'scss/fontawesome/_variables.scss',
+                    },
+                    {
+                    src: 'bower_components/fontawesome/fonts/*',
+                    dest: '<%%= buildPath %>/<%%= fontsFolder %>/',
+                    filter: 'isFile',
+                    }
+                ]
             }<% } %>
         }
 

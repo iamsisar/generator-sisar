@@ -74,9 +74,14 @@ var SisarGenerator = yeoman.generators.Base.extend({
       {
       name: 'Modernizr',
       value: 'includeModernizr',
-      checked: true
+      default: true
       }
     ]
+    },
+    {
+    type: 'confirm',
+    name: 'useHaml',
+    message: 'Would you like to use HAML? (experimental)'
     },
     {
       name: 'buildPath',
@@ -99,6 +104,11 @@ var SisarGenerator = yeoman.generators.Base.extend({
       default: 'img'
     },
     {
+      name: 'fontsFolder',
+      message: 'Please specify a name for the Fonts folder',
+      default: 'fonts'
+    },
+    {
       name: 'jqueryVersion',
       message: 'Wich version of jQuery shall we use? (only numbers and dots).\nPlease note that jQuery 2.0+ only supports IE9+. By default we use 1.9.0 but you can specify an earlier version and forget about dumb browsers.',
       default: '1.9.0'
@@ -113,11 +123,24 @@ var SisarGenerator = yeoman.generators.Base.extend({
     message: 'Would you like some other tool?',
     choices: [{
       name: 'JS Hint',
-      value: 'includeJshint',
+      value: 'useJshint',
+      checked: false
+      },
+      {
+      name: 'Grunt connect',
+      value: 'useGruntConnect',
       checked: false
       }
     ]
-    }
+    },
+    {
+      name: 'gruntConnectPort',
+      message: 'Please specify port number for Grunt Connect',
+      default: '8282',
+      when: function( answers ) {
+        return answers.tools.indexOf('useGruntConnect') !== -1;
+      }
+    },
 
 
     ];
@@ -132,16 +155,20 @@ var SisarGenerator = yeoman.generators.Base.extend({
 	    this.includeBootstrap = hasFeature(ingredients,'includeBootstrap');
       this.includeFontawesome = hasFeature(ingredients,'includeFontawesome');
       this.googlefonts = hasFeature(ingredients,'googlefonts');
-      this.includeJshint = hasFeature(tools,'includeJshint');
+      this.useJshint = hasFeature(tools,'useJshint');
+      this.useGruntConnect = hasFeature(tools,'useGruntConnect');
+      this.gruntConnectPort = answers.gruntConnectPort;
 
       this.authorName = answers.authorName;
       this.projectTitle = answers.projectTitle;
       this.projectDescription = answers.projectDescription;
       this.projectVersion = answers.projectVersion;
+      this.useHaml = answers.useHaml;
       this.buildPath = answers.buildPath;
       this.cssFolder = answers.cssFolder;
       this.jsFolder = answers.jsFolder;
       this.imgFolder = answers.imgFolder;
+      this.fontsFolder = answers.fontsFolder;
       this.jqueryVersion = answers.jqueryVersion;
       this.googlefonts = answers.googlefonts;
 
@@ -177,6 +204,10 @@ var SisarGenerator = yeoman.generators.Base.extend({
       this.mkdir('scss/fontawesome');
     }
 
+    if ( this.useHaml ){
+      this.directory('haml','haml');
+    }
+
     this.template('_package.json', 'package.json');
     this.template('_bower.json', 'bower.json');
     this.template('Gruntfile.js', 'Gruntfile.js');
@@ -189,7 +220,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
   projectfiles: function () {
     this.copy('editorconfig', '.editorconfig');
 
-    if( this.includeJshint ){
+    if( this.useJshint ){
       this.copy('jshintrc', '.jshintrc');
     }
   }

@@ -1,0 +1,22 @@
+!!!
+%html
+
+	%head
+		%title <%= projectTitle  %>
+		%meta( charset = "utf-8" )
+		%meta( name = "viewport" content = "width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1" )
+
+
+		<% if (includeBootstrap) {  %>
+		%link( rel="stylesheet" href="<%= buildPath  %>/<%= cssFolder  %>/bootstrap.css" )<% } %>
+
+		%link( rel="stylesheet" href="<%= buildPath  %>/<%= cssFolder  %>/style.css" )
+
+
+		/[if IE 8]
+			%link( rel="stylesheet" href="<%= buildPath  %>/<%= cssFolder  %>/ie.css" )
+
+		%script( src="https://ajax.googleapis.com/ajax/libs/jquery/<%= jqueryVersion %>/jquery.min.js" )
+		%script( src="<%= buildPath  %>/<%= jsFolder  %>/script.js" type="text/javascript" charset="utf-8" )
+
+	%body

@@ -127,6 +127,11 @@ var SisarGenerator = yeoman.generators.Base.extend({
       checked: false
       },
       {
+      name: 'Autoprefixer',
+      value: 'useAutoprefixer',
+      checked: true
+      },
+      {
       name: 'Grunt connect',
       value: 'useGruntConnect',
       checked: false
@@ -157,6 +162,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
       this.googlefonts = hasFeature(ingredients,'googlefonts');
       this.useJshint = hasFeature(tools,'useJshint');
       this.useGruntConnect = hasFeature(tools,'useGruntConnect');
+      this.useAutoprefixer = hasFeature(tools,'useAutoprefixer');
       this.gruntConnectPort = answers.gruntConnectPort;
 
       this.authorName = answers.authorName;

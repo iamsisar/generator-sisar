@@ -21,6 +21,7 @@
 	    "grunt-contrib-copy": "~0.5.0",
 	    "load-grunt-tasks": "~0.5.0",<% if(useHaml){ %>
 	    "grunt-contrib-haml": "~0.2.0",<% } if(useGruntConnect){ %>
-	    "grunt-contrib-connect": "~0.8.0"<% } %>
+	    "grunt-contrib-connect": "~0.8.0",<% } if(useAutoprefixer){ %>
+    	"grunt-autoprefixer": "~1.0.1"<% } %>
 	}
 }

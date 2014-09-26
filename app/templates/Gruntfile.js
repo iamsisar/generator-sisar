@@ -256,7 +256,19 @@ module.exports = function(grunt) {
                     config: 'config.rb'
                 }
             }
-        },
+        },<% if (useAutoprefixer) { %>
+
+        // autoprefixer
+        autoprefixer: {
+            dev: {
+                src: 'css/style.css',
+                dest:'css/style.css'
+            },
+            build: {
+                src: 'css/style.css',
+                dest:'<%%= buildPath %>/<%%= cssFolder %>/style.css'
+            }
+        },<% } %>
 
         // Haml
         haml: {

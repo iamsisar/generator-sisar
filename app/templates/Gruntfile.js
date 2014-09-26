@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                     'js/lib/twbs_js/scrollspy.js',
                     'js/lib/twbs_js/tab.js',
                     'js/lib/twbs_js/affix.js',<% } %>
-                    'js/lib/**/*.js',
+                    'js/lib/**/!(_*).js',
                     // sources
                     'js/src/!(script).js',
                     'js/src/script.js'
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
                     'js/lib/twbs_js/scrollspy.js',
                     'js/lib/twbs_js/tab.js',
                     'js/lib/twbs_js/affix.js',<% } %>
-                    'js/lib/**/*.js',
+                    'js/lib/**/!(_*).js',
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],

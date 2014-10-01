@@ -79,6 +79,15 @@ var SisarGenerator = yeoman.generators.Base.extend({
     ]
     },
     {
+      name: 'multipleGridsSupport',
+      type: 'confirm',
+      message: 'Bootstrap: add support to multiple grids? (experimental)',
+      default: false,
+      when: function( answers ) {
+        return answers.ingredients.indexOf('includeBootstrap') !== -1;
+      }
+    },
+    {
     type: 'confirm',
     name: 'useHaml',
     message: 'Would you like to use HAML? (experimental)'
@@ -169,6 +178,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
       this.projectTitle = answers.projectTitle;
       this.projectDescription = answers.projectDescription;
       this.projectVersion = answers.projectVersion;
+      this.multipleGridsSupport = answers.multipleGridsSupport;
       this.useHaml = answers.useHaml;
       this.buildPath = answers.buildPath;
       this.cssFolder = answers.cssFolder;

@@ -1,3 +1,5 @@
+<% if(!multipleGridsSupport){ %>
+
 @mixin make-grid-columns-ext() {
   $list: '';
   $i: 1;
@@ -101,3 +103,120 @@
 @media (min-width: $screen-lg-min) {
   @include make-grid-ext(lg);
 }
+
+<% }
+
+// EXPERIMENTAL: MULTIPLE GRID SUPPORT
+
+else { %>
+@mixin make-grid-columns-ext($prefix, $columns-number) {
+  $list: '';
+  $i: 1;
+  $list: "%#{$prefix}col-xs-#{$i}, %col-sm-#{$i}, %col-md-#{$i}, %col-lg-#{$i}";
+  @for $i from (1 + 1) through $columns-number {
+    $list: "#{$list}, %col-xs-#{$i}, %col-sm-#{$i}, %col-md-#{$i}, %col-lg-#{$i}";
+  }
+  #{$list} {
+    position: relative;
+    // Prevent columns from collapsing when empty
+    min-height: 1px;
+    // Inner gutter via padding
+    padding-left:  ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+  }
+}
+
+
+@mixin float-grid-columns-ext($class, $prefix, $columns-number) {
+  $list: '';
+  $i: 1;
+  $list: "%#{$prefix}col-#{$class}-#{$i}";
+  @for $i from (1 + 1) through $columns-number {
+    $list: "#{$list}, %#{$prefix}col-#{$class}-#{$i}";
+  }
+  #{$list} {
+    float: left;
+  }
+}
+
+
+@mixin calc-grid-column-ext($index, $class, $type, $prefix, $columns-number) {
+  @if ($type == width) and ($index > 0) {
+    %#{$prefix}col-#{$class}-#{$index} {
+      width: percentage(($index / $columns-number));
+    }
+  }
+  @if ($type == push) and ($index > 0) {
+    %#{$prefix}col-#{$class}-push-#{$index} {
+      left: percentage(($index / $columns-number));
+    }
+  }
+  @if ($type == push) and ($index == 0) {
+    %#{$prefix}col-#{$class}-push-0 {
+      left: auto;
+    }
+  }
+  @if ($type == pull) and ($index > 0) {
+    %#{$prefix}col-#{$class}-pull-#{$index} {
+      right: percentage(($index / $columns-number));
+    }
+  }
+  @if ($type == pull) and ($index == 0) {
+    %#{$prefix}col-#{$class}-pull-0 {
+      right: auto;
+    }
+  }
+  @if ($type == offset) {
+    %#{$prefix}col-#{$class}-offset-#{$index} {
+      margin-left: percentage(($index / $columns-number));
+    }
+  }
+}
+
+@mixin loop-grid-columns-ext($columns, $class, $type, $prefix, $columns-number) {
+  @for $i from 0 through $columns {
+    @include calc-grid-column-ext($i, $class, $type, $prefix, $columns-number);
+  }
+}
+
+
+@mixin make-grid-ext($class, $prefix, $columns-number) {
+  @include float-grid-columns-ext($class, $prefix, $columns-number);
+  @include loop-grid-columns-ext($columns-number, $class, width, $prefix, $columns-number);
+  @include loop-grid-columns-ext($columns-number, $class, pull, $prefix, $columns-number);
+  @include loop-grid-columns-ext($columns-number, $class, push, $prefix, $columns-number);
+  @include loop-grid-columns-ext($columns-number, $class, offset, $prefix, $columns-number);
+}
+
+
+@include make-grid-columns-ext("", $grid-columns);
+// @include make-grid-columns-ext("twenth-",20);
+
+
+// Extra small grid
+@include make-grid-ext(xs,"", $grid-columns);
+// @include make-grid-ext(xs,"twenth-",20);
+
+
+// Small grid
+@media (min-width: $screen-sm-min) {
+  @include make-grid-ext(sm,"", $grid-columns);
+  // @include make-grid-ext(sm,"twenth-",20);
+}
+
+
+// Medium grid
+@media (min-width: $screen-md-min) {
+  @include make-grid-ext(md,"", $grid-columns);
+  // @include make-grid-ext(md,"twenth-",20);
+}
+
+
+// Large grid
+@media (min-width: $screen-lg-min) {
+  @include make-grid-ext(lg,"", $grid-columns);
+  // @include make-grid-ext(lg,"twenth-",20);
+}
+
+
+ <% } %>

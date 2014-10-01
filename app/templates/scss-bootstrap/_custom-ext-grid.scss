@@ -189,34 +189,64 @@ else { %>
 }
 
 
-@include make-grid-columns-ext("", $grid-columns);
-// @include make-grid-columns-ext("twenth-",20);
+//* = Generate default grid
+//----------------------------------------------- */
 
+@include make-grid-columns-ext("",$grid-columns);
 
 // Extra small grid
-@include make-grid-ext(xs,"", $grid-columns);
-// @include make-grid-ext(xs,"twenth-",20);
-
+@include make-grid-ext(xs,"",$grid-columns);
 
 // Small grid
 @media (min-width: $screen-sm-min) {
-  @include make-grid-ext(sm,"", $grid-columns);
-  // @include make-grid-ext(sm,"twenth-",20);
+  @include make-grid-ext(sm,"",$grid-columns);
 }
-
 
 // Medium grid
 @media (min-width: $screen-md-min) {
-  @include make-grid-ext(md,"", $grid-columns);
-  // @include make-grid-ext(md,"twenth-",20);
+  @include make-grid-ext(md,"",$grid-columns);
 }
-
 
 // Large grid
 @media (min-width: $screen-lg-min) {
-  @include make-grid-ext(lg,"", $grid-columns);
-  // @include make-grid-ext(lg,"twenth-",20);
+  @include make-grid-ext(lg,"",$grid-columns);
 }
+
+//* = Generate custom grids
+//----------------------------------------------- */
+
+@mixin generate-custom-grid($prefix,$desired-columns){
+
+  $max-columns: 1;
+
+  @each $v in $desired-columns{
+      $max-columns: lcm($max-columns, $v);
+  }
+
+  @include make-grid-columns-ext($prefix,$max-columns);
+
+  // Extra small grid
+  @include make-grid-ext(xs,$prefix,$max-columns);
+
+  // Small grid
+  @media (min-width: $screen-sm-min) {
+    @include make-grid-ext(sm,$prefix,$max-columns);
+  }
+
+  // Medium grid
+  @media (min-width: $screen-md-min) {
+    @include make-grid-ext(md,$prefix,$max-columns);
+  }
+
+  // Large grid
+  @media (min-width: $screen-lg-min) {
+    @include make-grid-ext(lg,$prefix,$max-columns);
+  }
+
+}
+
+// @include generate-custom-grid("clients-", 5 4 3 2 )
+
 
 
  <% } %>

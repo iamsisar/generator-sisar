@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sass'
 require 'compass'
+<% if(multipleGridsSupport){ %> require 'sassy-fractions' <% } %>
 
 preferred_syntax = :scss
 http_path = '/'

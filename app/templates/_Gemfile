@@ -2,4 +2,4 @@ source 'https://rubygems.org'
 
 gem 'sass'
 gem 'compass'
-# gem 'sassy-fractions', :git=> 'https://github.com/iamsisar/sassy-fractions.git'
+<% if(multipleGridsSupport){ %> gem 'sassy-fractions', :git=> 'https://github.com/iamsisar/sassy-fractions.git' <% } %>

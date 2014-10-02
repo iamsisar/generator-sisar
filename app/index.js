@@ -82,7 +82,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
     {
       name: 'multipleGridsSupport',
       type: 'confirm',
-      message: 'Bootstrap: add support to multiple grids? (experimental)',
+      message: 'Bootstrap: add support to multiple custom grids?',
       default: false,
       when: function( answers ) {
         return answers.ingredients.indexOf('includeBootstrap') !== -1;
@@ -165,7 +165,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
       var ingredients = answers.ingredients;
       var tools = answers.tools;
       function hasFeature(group,feat) { return group.indexOf(feat) !== -1; }
-      
+
       this.includeModernizr = hasFeature(ingredients,'includeModernizr');
       this.includeBootstrap = hasFeature(ingredients,'includeBootstrap');
       this.includeFontawesome = hasFeature(ingredients,'includeFontawesome');

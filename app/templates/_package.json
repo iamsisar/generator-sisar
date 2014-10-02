@@ -10,8 +10,11 @@
 	    "grunt-contrib-jshint": "~0.10.0",<% } %>
 	    "grunt-contrib-uglify": "~0.5.0",
 	    "grunt-contrib-concat": "~0.4.0",<% if(includeModernizr){ %>
-	    "grunt-modernizr": "~0.5.2",<% } %>
-	    "grunt-contrib-watch": "~0.6.1",
+	    "grunt-modernizr": "~0.5.2",<% } if(useHaml){ %>
+	    "grunt-contrib-haml": "~0.2.0",<% } if(useGruntConnect){ %>
+	    "grunt-contrib-connect": "~0.8.0",<% } if(useAutoprefixer){ %>
+    	"grunt-autoprefixer": "~1.0.1",<% } %>
+    	"grunt-contrib-watch": "~0.6.1",
 	    "grunt-contrib-sass": "~0.7.3",
 	    "grunt-contrib-imagemin": "~0.7.1",
 	    "grunt-svgmin": "~0.4.0",
@@ -19,9 +22,6 @@
 	    "grunt-contrib-compass": "~0.8.0",
 	    "grunt-notify": "~0.3.0",
 	    "grunt-contrib-copy": "~0.5.0",
-	    "load-grunt-tasks": "~0.5.0",<% if(useHaml){ %>
-	    "grunt-contrib-haml": "~0.2.0",<% } if(useGruntConnect){ %>
-	    "grunt-contrib-connect": "~0.8.0",<% } if(useAutoprefixer){ %>
-    	"grunt-autoprefixer": "~1.0.1"<% } %>
+	    "load-grunt-tasks": "~0.5.0"
 	}
 }

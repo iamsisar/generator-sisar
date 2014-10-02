@@ -227,7 +227,8 @@ module.exports = function(grunt) {
             // Dev folder
             dev: {
                 options: {
-                    style: 'compact'
+                    style: 'compact',
+                    bundleExec: true
                 },
                 files: {
                     <% if (includeBootstrap) { %>'css/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
@@ -253,7 +254,8 @@ module.exports = function(grunt) {
                     sassDir: 'scss',
                     cssDir: 'css/parts',
                     specify: ['scss/*.scss'],
-                    config: 'config.rb'
+                    config: 'config.rb',
+                    bundleExec: true
                 }
             }
         },<% if (useAutoprefixer) { %>

@@ -25,6 +25,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
   done: function () {
       this.on('dependenciesInstalled', function() {
         this.spawnCommand('grunt', ['copy']);
+        this.spawnCommand('bundler', ['install']);
       });
   },
 
@@ -81,7 +82,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
     {
     type: 'confirm',
     name: 'useHaml',
-    message: 'Would you like to use HAML? (experimental)'
+    message: 'Would you like to use HAML?'
     },
     {
       name: 'buildPath',
@@ -216,7 +217,8 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
     this.template('_package.json', 'package.json');
     this.template('_bower.json', 'bower.json');
-    this.template('Gruntfile.js', 'Gruntfile.js');
+    this.template('_Gruntfile.js', 'Gruntfile.js');
+    this.template('_Gemfile', 'Gemfile');
     this.template('head.html', 'head.html');
     this.copy('_config.rb', 'config.rb');
 

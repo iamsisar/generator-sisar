@@ -1,3 +1,8 @@
+require 'rubygems'
+require 'bundler/setup'
+require 'sass'
+require 'compass'
+
 preferred_syntax = :scss
 http_path = '/'
 css_dir = 'css/parts'

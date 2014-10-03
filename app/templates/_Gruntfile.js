@@ -238,7 +238,8 @@ module.exports = function(grunt) {
             // Build folder
             build: {
                 options: {
-                    style: 'compressed'
+                    style: 'compressed',
+                    bundleExec: true
                 },
                 files: {
                     <% if (includeBootstrap) { %>'<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',

@@ -13,3 +13,4 @@ javascripts_dir = 'js/src'
 relative_assets = true
 line_comments = true
 output_style = :compact
+sourcemap = true

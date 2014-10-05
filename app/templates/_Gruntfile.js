@@ -23,7 +23,8 @@ module.exports = function(grunt) {
         imgFolder   : '<%= imgFolder %>',
         fontsFolder : '<%= fontsFolder %>',
         <% if (includeBootstrap) {  %>
-        bootstrapAssets     : 'scss/bootstrap',<% }
+        bootstrapAssets     : 'scss/bootstrap',
+        bootstrapConfig     : grunt.file.readYAML('bootstrap.yaml'),<% }
         if (includeFontawesome) { %>
         fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
         <% if (useGruntConnect) {  %>
@@ -41,7 +42,7 @@ module.exports = function(grunt) {
 
         // Javascript and css concatenation
         concat: {
-            script_dev: {
+            script: {
                 // Script order:
                 // 1. Modernizr
                 // 2. other libraries
@@ -50,47 +51,9 @@ module.exports = function(grunt) {
                 src: [
                     // libraries
                     'js/lib/modernizr-<%%= pkg.name %>.js',<% if (includeBootstrap) {  %>
-                    // Bootstrap need to be built in a specific order not to break your script -.-
-                    'js/lib/twbs_js/transition.js',
-                    'js/lib/twbs_js/alert.js',
-                    'js/lib/twbs_js/button.js',
-                    'js/lib/twbs_js/carousel.js',
-                    'js/lib/twbs_js/collapse.js',
-                    'js/lib/twbs_js/dropdown.js',
-                    'js/lib/twbs_js/modal.js',
-                    'js/lib/twbs_js/tooltip.js',
-                    'js/lib/twbs_js/popover.js',
-                    'js/lib/twbs_js/scrollspy.js',
-                    'js/lib/twbs_js/tab.js',
-                    'js/lib/twbs_js/affix.js',<% } %>
+                    '<%%= bootstrapConfig.components %>',<% } %>
                     'js/lib/**/!(_*).js',
                     // sources
-                    'js/src/!(script).js',
-                    'js/src/script.js'
-                ],
-                dest: 'js/script.js',
-                options: {
-                    // Keep parts separated by line breaks
-                    separator:'\n\n'
-                }
-            },
-            // Same as above, but save result in build folder
-            script_build: {
-                src: [
-                    'js/lib/modernizr-<%%= pkg.name %>.js',<% if (includeBootstrap) {  %>
-                    'js/lib/twbs_js/transition.js',
-                    'js/lib/twbs_js/alert.js',
-                    'js/lib/twbs_js/button.js',
-                    'js/lib/twbs_js/carousel.js',
-                    'js/lib/twbs_js/collapse.js',
-                    'js/lib/twbs_js/dropdown.js',
-                    'js/lib/twbs_js/modal.js',
-                    'js/lib/twbs_js/tooltip.js',
-                    'js/lib/twbs_js/popover.js',
-                    'js/lib/twbs_js/scrollspy.js',
-                    'js/lib/twbs_js/tab.js',
-                    'js/lib/twbs_js/affix.js',<% } %>
-                    'js/lib/**/!(_*).js',
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],
@@ -100,15 +63,10 @@ module.exports = function(grunt) {
                 },
             },
             // Appends stylesheets other then main.css at the bottom of style.css
-            css_dev: {
-                src: [
-                    'css/parts/main.css',
-                    'css/parts/!(main).css'
-                ],
-                dest: 'css/style.css'
-            },
-            // Same as above, but save result in build folder
-            css_build: {
+            css: {
+                options: {
+                    'sourceMap': true
+                },
                 src: [
                     'css/parts/main.css',
                     'css/parts/!(main).css'
@@ -132,12 +90,6 @@ module.exports = function(grunt) {
 
         // Once concatenated, create a minified version of your javascript
         uglify: {
-            // Dev folder
-            dev: {
-                src: 'js/script.js',
-                dest: 'js/script.min.js'
-            },
-            // Build folder
             build: {
                 src: 'js/script.js',
                 dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
@@ -162,21 +114,11 @@ module.exports = function(grunt) {
                     removeEmptyAttrs: true
                 }]
             },
-            // Dev folder
-            dev: {
-                files: [{
-                    expand: true,
-                    cwd: 'img/src',
-                    src: '**/*.svg',
-                    dest: 'img/',
-                    ext: '.svg'
-                }]
-            },
             // Build folder
             build: {
                 files: [{
                     expand: true,
-                    cwd: 'img/src',
+                    cwd: 'img',
                     src: '**/*.svg',
                     dest: '<%%= buildPath %>/<%%= imgFolder %>/',
                     ext: '.svg'
@@ -188,7 +130,7 @@ module.exports = function(grunt) {
         svg2png: {
             all: {
                 files: [{
-                    src: ['img/**/*.svg','<%%= buildPath %>/<%%= imgFolder %>/**/*.svg']
+                    src: ['img/**/*.svg']
                 }]
             }
         },
@@ -199,20 +141,11 @@ module.exports = function(grunt) {
             options: {
                 cache: false
             },
-            // Dev folder
-            dev: {
-                files: [{
-                    expand: true,
-                    cwd: 'img/src',
-                    src: ['**/*.{png,jpg,gif}'],
-                    dest: 'img/'
-                }]
-            },
             // Build folder
             build: {
                 files: [{
                     expand: true,
-                    cwd: 'img/src',
+                    cwd: 'img',
                     src: ['**/*.{png,jpg,gif}'],
                     dest: '<%%= buildPath %>/<%%= imgFolder %>/'
                 }]
@@ -224,21 +157,11 @@ module.exports = function(grunt) {
         // Remember IE css selector limits!
         // http://blogs.msdn.com/b/ieinternals/archive/2011/05/14/10164546.aspx
         sass: {
-            // Dev folder
-            dev: {
-                options: {
-                    style: 'compact',
-                    bundleExec: true
-                },
-                files: {
-                    <% if (includeBootstrap) { %>'css/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
-                    <% } if (includeFontawesome) { %>'css/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'<% } %>
-                }
-            },
             // Build folder
             build: {
                 options: {
-                    style: 'compressed'
+                    style: 'compact',
+                    bundleExec: true
                 },
                 files: {
                     <% if (includeBootstrap) { %>'<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
@@ -262,13 +185,16 @@ module.exports = function(grunt) {
 
         // autoprefixer
         autoprefixer: {
-            dev: {
-                src: 'css/style.css',
-                dest:'css/style.css'
-            },
             build: {
-                src: 'css/style.css',
-                dest:'<%%= buildPath %>/<%%= cssFolder %>/style.css'
+                options: {
+                    map: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'css/parts',
+                    src: '**/*.css',
+                    dest: 'css/parts'
+                }]
             }
         },<% } %>
 
@@ -295,7 +221,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             scripts: {
                 files: ['js/src/*.js', 'js/lib/**/*.js'],
-                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script_dev','concat:script_build',<% if (useJshint) { %>'jshint:sources',<% } %>'uglify','notify:script'],
+                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script',<% if (useJshint) { %>'jshint:sources',<% } %>'uglify','notify:script'],
                 options: {
                     spawn: false
                 }
@@ -304,7 +230,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             css: {
                 files: ['scss/**/*.scss', 'css/parts/*.css', '<%%= bootstrapAssets %>/*.scss'],
-                tasks: ['sass:dev','sass:build','compass:dev','concat:css_dev','concat:css_build','notify:css'],
+                tasks: ['sass','compass','autoprefixer','concat:css','notify:css'],
                 options: {
                     spawn: false
                 }
@@ -321,8 +247,15 @@ module.exports = function(grunt) {
             // when a .svg is modified, optimize it and create a .png fallback.
             // If no errors, notify success.
             svg: {
-                files: ['img/src/**/*.svg'],
-                tasks: ['svgmin','svg2png','notify:images'],
+                files: ['img/**/*.svg'],
+                tasks: ['newer:svgmin','newer:svg2png','notify:images'],
+                options: {
+                    spawn: false
+                }
+            },
+            img: {
+                files: ['img/**/*.{png,jpg,gif}'],
+                tasks: ['newer:imagemin','notify:images'],
                 options: {
                     spawn: false
                 }

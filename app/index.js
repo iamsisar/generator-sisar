@@ -216,6 +216,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
     if ( this.includeBootstrap ){
       this.directory('scss-bootstrap','scss/bootstrap');
+      this.copy('_bootstrap.yaml', 'bootstrap.yaml');
     }
     if ( this.includeFontawesome ){
       this.mkdir('scss/fontawesome');

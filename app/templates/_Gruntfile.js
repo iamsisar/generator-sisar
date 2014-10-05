@@ -160,7 +160,7 @@ module.exports = function(grunt) {
             // Build folder
             build: {
                 options: {
-                    style: 'compact',
+                    style: 'compressed',
                     bundleExec: true
                 },
                 files: {

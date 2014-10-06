@@ -24,7 +24,7 @@ var SisarGenerator = yeoman.generators.Base.extend({
 
   done: function () {
       this.on('dependenciesInstalled', function() {
-        this.spawnCommand('grunt', ['copy']);
+        if ( this.includeFontawesome || this.includeFontawesome ) this.spawnCommand('grunt', ['copy']);
         this.spawnCommand('bundler', ['install']);
       });
   },

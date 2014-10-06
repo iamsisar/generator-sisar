@@ -160,7 +160,11 @@ module.exports = function(grunt) {
             // Build folder
             build: {
                 options: {
+<<<<<<< HEAD
+                    style: 'compact',
+=======
                     style: 'compressed',
+>>>>>>> 84c0ec24538c85f216bc9f35fecdbcfbc0b637d3
                     bundleExec: true
                 },
                 files: {
@@ -230,7 +234,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             css: {
                 files: ['scss/**/*.scss', 'css/parts/*.css', '<%%= bootstrapAssets %>/*.scss'],
-                tasks: ['sass','compass',<% if (useAutoprefixer) { %>'autoprefixer',<% } %>'concat:css','notify:css'],
+                tasks: ['sass','compass','autoprefixer','concat:css','notify:css'],
                 options: {
                     spawn: false
                 }
@@ -294,14 +298,13 @@ module.exports = function(grunt) {
                 }
             },
         },
-        <% if (includeBootstrap || includeFontawesome) { %>
+
         // copy task is used during scaffolding with Yeoman.
         // Please be aware that running this task during development WILL OVERWRITE following files
         // - scss/bootstrap/bootstrap.scss
         // - scss/bootstrap/_variables.scss
         // - js/lib/twbs_js/*.js
         // - scss/fontawesome/_variables.scss
-
         copy: {
             <% if (includeBootstrap) { %>
             bootstrap_css: {
@@ -335,7 +338,7 @@ module.exports = function(grunt) {
                     }
                 ]
             }<% } %>
-        }<% } %>
+        }
 
 
     });

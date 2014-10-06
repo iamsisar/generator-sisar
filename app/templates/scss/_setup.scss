@@ -1,5 +1,5 @@
 //* = Resources path
 //----------------------------------------------- */
 
-$dir_bootstrap: '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
-$dir_fontawesome: '../bower_components/fontawesome/scss';
+<% if (includeBootstrap) { %>$dir_bootstrap: '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';<% } %>
+<% if (includeFontawesome) { %>$dir_fontawesome: '../bower_components/fontawesome/scss';<% } %>

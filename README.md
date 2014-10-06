@@ -154,7 +154,7 @@ Bootstrap javascript components are concatenated in your script by default. Due 
 If you need to use multiple stand-alone grid systems you can define them in `scss/bootstrap/custom-ext-grid.scss` by using 
 
 ````scss
-@include generate-custom-grid($prefix, $desired cols)
+@include generate-custom-grid($prefix, $desired-cols)
 ````
 
 The `@mixin` accepts two arguments

@@ -137,14 +137,14 @@ Most of your styling rules will be defined in `main.scss` as well as all of your
 #### Bootstrap
 As mentioned above, you can choose either compile Bootstrap separately or merge it with your stylesheet. In both cases *variables* and *mixins* are included in `main.scss` as well as @extend-only porting of *grid* and *responsive utilities*. This is useful if you want to keep your markup as clean as possible and DRY out your style. Example:
 
-````scss
+```scss
 .my-custom-column-class{
 	@extend %visible-sm-block;
 	@extend %col-sm-6;
 	@extend %col-md-4;
 	@extend %col-lg-push-4;
 }
-````
+```
 
 While any other `.scss` is compiled through Compass, Bootstrap relies on standard SASS. You can choose which modules to include by commenting out the correspondent lines in `scss/bootstrap/bootstrap.scss`.
 
@@ -153,9 +153,9 @@ Bootstrap javascript components are concatenated in your script by default. Due 
 ##### Custom grid generator (alpha)
 If you need to use multiple stand-alone grid systems you can define them in `scss/bootstrap/custom-ext-grid.scss` by using 
 
-````scss
+```scss
 @include generate-custom-grid($prefix, $desired-cols)
-````
+```
 
 The `@mixin` accepts two arguments
 
@@ -167,12 +167,12 @@ a recap telling you wich to use to obtain desired subdivision.
 
 For example if you want your grid to have 5 columns on desktop, 3 columns on tablet and 2 columns on mobile, you will need
 
-````scss
+```scss
 @include generate-custom-grid("my-", 5 3 2)
-````
+```
 On compile your console will output
 
-````
+```
 CUSTOM GRID GENERATED:
 Class prefix: %my-
 Grid columns:30.
@@ -180,16 +180,16 @@ Desired classes are:
   • %my-col-{breakpoint}-6 results 5 columns
   • %my-col-{breakpoint}-10 results 3 columns
   • %my-col-{breakpoint}-15 results 2 columns
-````
+```
 Then you can extend theese classes in your selector as follow
 
-````scss
+```scss
 .my-grid .elements{
 	@extend %my-col-xs-15;
 	@extend %my-cols-sm-10;
 	@extend %my-cols-md-6;
 }
-````
+```
 
 Ok, now you can freak out.
 

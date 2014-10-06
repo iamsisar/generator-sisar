@@ -21,13 +21,10 @@ Gives structure to your workflow to make your life easier!
 - Live-reloads your browser on save
 - Prints out fancy notification where supported
 
-![](http://goo.gl/mnvGkJ =x50)
-![](http://bundler.io/images/bundler-small.png =x50)
-
 
 ## Installation
 
-**Please note you need to install Bundler. ** ( http://bundler.io/ )
+**Please note you need to install Bundler.** [http://bundler.io/](http://bundler.io/)
 
 ```bash
 $ gem install bundler

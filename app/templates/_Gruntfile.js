@@ -329,9 +329,11 @@ module.exports = function(grunt) {
                     dest: 'scss/fontawesome/_variables.scss',
                     },
                     {
-                    src: 'bower_components/fontawesome/fonts/*',
+                    expand: true,
+                    cwd: 'bower_components/fontawesome/fonts',
+                    src: '*',
                     dest: '<%%= buildPath %>/<%%= fontsFolder %>/',
-                    filter: 'isFile',
+                    filter: 'isFile'
                     }
                 ]
             }<% } %>

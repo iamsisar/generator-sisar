@@ -1,5 +1,16 @@
 //* = Resources path
 //----------------------------------------------- */
-
-<% if (includeBootstrap) { %>$dir_bootstrap: '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';<% } %>
-<% if (includeFontawesome) { %>$dir_fontawesome: '../bower_components/fontawesome/scss';<% } %>
+<% if (includeBootstrap) { %>
+	$dir_bootstrap: '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+<% if(multipleGridsSupport){ %>
+	@mixin custom-grid-debug($prefix, $desired-columns, $max-columns){
+		/////////// Debug info ////////////
+		$debug-desired-classes : '';
+		@each $q in $desired-columns {
+		$debug-desired-classes : $debug-desired-classes + '\a   • %#{$prefix}col-{bp}-#{$max-columns/$q} results #{$q} columns'
+		}
+		@debug '\a \a CUSTOM GRID GENERATED:\a Class prefix: %#{$prefix}\a Grid columns:#{$max-columns}.\a Desired classes are:#{$debug-desired-classes}  \a \a'
+	}
+<% }
+} if (includeFontawesome) { %>
+	$dir_fontawesome: '../bower_components/fontawesome/scss';<% } %>

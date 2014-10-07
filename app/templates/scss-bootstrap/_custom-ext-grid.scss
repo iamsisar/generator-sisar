@@ -243,13 +243,7 @@ else { %>
     @include make-grid-ext(lg,$prefix,$max-columns);
   }
 
-  /////////// Debug info ////////////
-  $debug-desired-classes : '';
-  @each $q in $desired-columns {
-    $debug-desired-classes : $debug-desired-classes + '\a   • %#{$prefix}col-{bp}-#{$max-columns/$q} results #{$q} columns'
-  }
-  @debug '\a \a CUSTOM GRID GENERATED:\a Class prefix: %#{$prefix}\a Grid columns:#{$max-columns}.\a Desired classes are:#{$debug-desired-classes}  \a \a'
-
+  @include custom-grid-debug($prefix, $desired-columns, $max-columns);
 }
 
 // @include generate-custom-grid("clients-", 5 4 3 2 )

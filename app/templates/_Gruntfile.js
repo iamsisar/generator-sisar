@@ -230,7 +230,7 @@ module.exports = function(grunt) {
             // If no errors, notify success.
             css: {
                 files: ['scss/**/*.scss', 'css/parts/*.css', '<%%= bootstrapAssets %>/*.scss'],
-                tasks: ['sass','compass',<% if (useAutoprefixer) { %>'autoprefixer',<% } %>'concat:css','notify:css'],
+                tasks: ['newer:sass','compass',<% if (useAutoprefixer) { %>'autoprefixer',<% } %>'concat:css','notify:css'],
                 options: {
                     spawn: false
                 }

@@ -57,7 +57,7 @@ module.exports = function(grunt) {
                     'js/src/!(script).js',
                     'js/src/script.js'
                 ],
-                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.js',
+                dest: 'js/script.js',
                 options: {
                     separator:'\n\n'
                 },
@@ -91,8 +91,16 @@ module.exports = function(grunt) {
         // Once concatenated, create a minified version of your javascript
         uglify: {
             build: {
-                src: 'js/script.js',
-                dest: '<%%= buildPath %>/<%%= jsFolder %>/script.min.js'
+                options: {
+                    sourceMap: true,
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'js',
+                    src: '*.js',
+                    dest: '<%%= buildPath %>/<%%= jsFolder %>',
+                    ext: '.min.js'
+                }]
             }
         },<% if (useJshint) { %>
 

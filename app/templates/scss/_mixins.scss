@@ -1,13 +1,6 @@
 //* = Mixins
 //----------------------------------------------- */
 
-@mixin icon($icon, $where:before ) {
-  &:#{$where}{
-    content: $icon;
-    @extend .#{$fa-css-prefix};
-  }
-}
-
 
 @mixin custom-check($type, $width, $height, $bg){
   .foo:checked::before,

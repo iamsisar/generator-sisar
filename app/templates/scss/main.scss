@@ -20,12 +20,9 @@
 //----------------------------------------------- */
 
 // Variables
-<% if (includeBootstrap) { %>
+@import 'variables'; <% if (includeBootstrap) { %>
 @import 'bootstrap/variables';
 <% } %>
-@import 'palette';
-@import 'variables';
-
 // Setup
 @import 'setup';
 
@@ -40,17 +37,21 @@
 
 // Bootstrap - enable columns placeholder selectors (e.g. %col-sm-6)
 @import 'bootstrap/custom-ext-grid';
+
 // Bootstrap - enable responsive utilities placeholder selectors (e.g. %visible-md-block)
 @import 'bootstrap/custom-ext-responsive-utilities';
 
 // Bootstrap - would you merge bootstrap in your css?
 //@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/bootstrap';
+
+// Fonts core
+@import 'fonts/fonts-variables';
+@import 'fonts/fonts-core';
 <% } if (includeFontawesome) { %>
 // FontAwesome
-@import 'fontawesome/variables';
 @import '../bower_components/fontawesome/scss/mixins';
 @import '../bower_components/fontawesome/scss/path';
-@import '../bower_components/fontawesome/scss/core';
+@import '../bower_components/fontawesome/scss/spinning';
 <% } %>
 // Custom
 @import 'mixins';

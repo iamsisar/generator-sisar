@@ -1,0 +1,24 @@
+@mixin icon-core{
+	display: inline-block;
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.#{$fa-css-prefix} {
+	@include icon-core;
+	font-family: FontAwesome;
+	line-height: 1;
+}
+
+
+@mixin icon($family, $icon, $where:before ) {
+  &:#{$where}{
+    content: $icon;
+
+    @if $family == 'fontawesome'{
+      @extend .#{$fa-css-prefix};
+    }
+  }
+}

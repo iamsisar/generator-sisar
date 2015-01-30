@@ -271,7 +271,7 @@ module.exports = function(grunt) {
             // reload browser when .css or template changes
             livereload: {
                 options: { livereload: true },
-                files: ['css/**/*', '*.{html,php,tpl,haml}']
+                files: ['css/**/*', '<%= buildPath %>/*.{html,php,tpl,haml}']
             }
         },
 
@@ -333,15 +333,15 @@ module.exports = function(grunt) {
             },<% } if (includeFontawesome) { %>
             fontawesome: {
                 files: [{
-                    src: 'bower_components/fontawesome/scss/_variables.scss',
-                    dest: 'scss/fontawesome/_variables.scss',
-                    },
-                    {
-                    expand: true,
-                    cwd: 'bower_components/fontawesome/fonts',
-                    src: '*',
-                    dest: '<%%= buildPath %>/<%%= fontsFolder %>/',
-                    filter: 'isFile'
+                        src: 'bower_components/fontawesome/scss/_variables.scss',
+                        dest: 'scss/fonts/_fonts-variables.scss'
+
+                    },{
+                        expand: true,
+                        cwd: 'bower_components/fontawesome/fonts',
+                        src: '*',
+                        dest: '<%%= buildPath %>/<%%= fontsFolder %>/',
+                        filter: 'isFile'
                     }
                 ]
             }<% } %>

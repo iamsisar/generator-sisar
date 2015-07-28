@@ -1,45 +1,98 @@
-//* = Mixins
+//* = Custom checkboxes / radio buttons
 //----------------------------------------------- */
 
+@mixin custom-check($type, $where, $bg:null){
+  input[type="#{$type}"]{
+    @at-root .foo:checked, & + label{
+      @if $bg != null{
+        line-height:image-height($bg);
+      }
+    }
 
-@mixin custom-check($type, $width, $height, $bg){
-  .foo:checked::before,
-  input[type=#{$type}] {
-      position:absolute;
-      clip: rect(0,0,0,0);
-      clip: rect(0 0 0 0);
-  }
+    @at-root .foo:checked, & + label::#{$where}{
+      @if $bg != null{
+        width: image-width($bg) / 2;
+        height: image-height($bg);
+        background:url($bg) left no-repeat;
+      }
 
-  .foo:checked,
-  input[type=#{$type}] + label {
-    position:relative;
-    cursor:pointer;
-    line-height:$height;
-  }
+      @if $where == 'after' {
+        margin-left:0.5em;
+      }
+      @if $where == 'before' {
+        margin-right:0.5em;
+      }
+    }
 
-  .foo:checked,
-  input[type=#{$type}] + label::before {
-      content: '';
-      display:inline-block;
-      top:0;
-      width: $width;
-      height: $height;
-      background:url($bg) no-repeat right;
-      vertical-align:top;
-      margin-right:0.5em
-  }
-
-  .foo:checked,
-  input[type=#{$type}] + label::before{
-      background:url($bg) no-repeat right;
+    &:checked + label::#{$where}{
+      background-position:right;
+    }
 
   }
 
-  input[type=#{$type}]:checked + label::before {
-    background-position:left;
-  }
+  @extend %custom-check-#{$type};
 
 }
+
+@mixin custom-check-checked($type, $where){
+  @at-root .foo:checked, & input[type="#{$type}"] + label::#{$where}{ @content }
+}
+
+@mixin custom-check-unchecked($type, $where){
+  @at-root .foo:checked, & input[type="#{$type}"] + label::#{$where}{ @content }
+}
+
+
+
+@at-root .foo:checked::before,%custom-check{
+  position:absolute;
+  clip: rect(0,0,0,0);
+  clip: rect(0 0 0 0);
+}
+
+%custom-check-radio{
+  & input[type="radio"]{
+    @extend %custom-check
+  }
+
+  @at-root .foo:checked,
+  & input[type="radio"]{
+    & + label{
+      position:relative;
+      cursor:pointer;
+
+      &::before, &::after{
+        display:inline-block;
+        top:0;
+        vertical-align:top;
+      }
+    }
+  }
+}
+
+%custom-check-checkbox{
+  & input[type="checkbox"]{
+    @extend %custom-check
+  }
+
+  @at-root .foo:checked,
+  & input[type="checkbox"]{
+    & + label{
+      position:relative;
+      cursor:pointer;
+
+      &::before, &::after{
+        display:inline-block;
+        top:0;
+        vertical-align:top;
+      }
+    }
+  }
+}
+
+
+//* = CSS tiangle
+//----------------------------------------------- */
 
 
 @mixin triangle ($size, $color, $direction) {

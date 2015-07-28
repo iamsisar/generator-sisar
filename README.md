@@ -3,12 +3,12 @@
 > [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://github.com/iamsisar) and the cool people he works with.
 
 ## Features
-Gives structure to your workflow to make your life easier! 
+Gives structure to your workflow to make your life easier!
 
 **generator-sisar** is really awesome because
 
 - Generates customized Bootstrap build with only parts you need
-- Allows you to define **multiple stand-alone grid systems** 
+- Allows you to define **multiple stand-alone grid systems**
 
 ...and of course it also
 
@@ -50,7 +50,7 @@ $ yo sisar
 ```
 
 ### Gems dependencies with Bundler
-Once your project files structure is ready you can customize you environment by specifing gems you need in `Gemfile` and running 
+Once your project files structure is ready you can customize you environment by specifing gems you need in `Gemfile` and running
 
 ````bash
 $ bundler update
@@ -98,12 +98,13 @@ Scaffolds out a complete project directory structure like the following (* indic
      ├── _setup.scss
      ├── _variables.scss
     *├── bootstrap
-     │  *├── _custom-ext-grid.sass    
-     │  *├── _custom-ext-responsive-utilities.scss    
+     │  *├── _custom-ext-grid.sass
+     │  *├── _custom-ext-responsive-utilities.scss
      │  *├── _variables.scss
      │  *└── bootstrap.scss
-    *├── fontawesome
-     │  *└── _variables.scss
+    *├── fonts
+     │  *└── _fonts-core.scss
+     │  *└── _fonts-variables.scss
      ├── ie.scss
      └── main.scss
 ```
@@ -132,7 +133,7 @@ Most of your styling rules will be defined in `main.scss` as well as all of your
 
 - **_fallbacks.scss** If you're planning to use Modernizr, this is a good place to put your you fallback rules.
 
-- **_ie.scss** Filename say it all. 
+- **_ie.scss** Filename say it all.
 
 #### Bootstrap
 As mentioned above, you can choose either compile Bootstrap separately or merge it with your stylesheet. In both cases *variables* and *mixins* are included in `main.scss` as well as @extend-only porting of *grid* and *responsive utilities*. This is useful if you want to keep your markup as clean as possible and DRY out your style. Example:
@@ -151,7 +152,7 @@ While any other `.scss` is compiled through Compass, Bootstrap relies on standar
 Bootstrap javascript components are concatenated in your script by default. Due to components dependencies, the concatenation order is specified in `bootstrap.yaml`. You can configure your own build by commenting out unnecessary components.
 
 ##### Custom grid generator (alpha)
-If you need to use multiple stand-alone grid systems you can define them in `scss/bootstrap/custom-ext-grid.scss` by using 
+If you need to use multiple stand-alone grid systems you can define them in `scss/bootstrap/custom-ext-grid.scss` by using
 
 ```scss
 @include generate-custom-grid($prefix, $desired-cols)

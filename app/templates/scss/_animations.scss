@@ -1,12 +1,18 @@
-//* = Transition Durations
+//* = Transition Durations and Delays
 //----------------------------------------------- */
 
-%transition-duration-01{ @include transition-duration(.1s) }
-%transition-duration-02{ @include transition-duration(.2s) }
-%transition-duration-03{ @include transition-duration(.3s) }
-%transition-duration-04{ @include transition-duration(.4s) }
-%transition-duration-05{ @include transition-duration(.5s) }
-%transition-duration-1{ @include transition-duration(1s) }
+// you can add additional intervals here (in seconds)
+$intervals:();
+
+// generates all decimal intervals between 0s and 1s, append them to yours
+// and generate duration and delay classes
+@for $i from 1 through 10{ $intervals: append( $intervals, ($i/10) ); }
+@each $int in $intervals{
+	$id : str-replace(to-string($int), '.', '');
+	%transition-duration-#{$id}{ transition-duration: $int * 1s }
+	%transition-delay-#{$id}{ transition-delay: $int * 1s }
+}
+
 
 //* = Transition Timings
 //----------------------------------------------- */
@@ -15,10 +21,4 @@
 
 //* = Transitions
 //----------------------------------------------- */
-
-.container{
-  @include transition-property(max-width, width);
-  @include transition-duration(.3s);
-  @include transition-timing-function(linear);
-}
 

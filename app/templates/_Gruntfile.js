@@ -6,7 +6,6 @@
  *
  */
 
-
 module.exports = function(grunt) {
 
     // load all grunt tasks matching the `grunt-*` pattern
@@ -14,31 +13,36 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        pkg         : grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('package.json'),
 
         // Folder names and build path definitions
-        buildPath   : '<%= buildPath %>',
-        jsFolder    : '<%= jsFolder %>',
-        cssFolder   : '<%= cssFolder %>',
-        imgFolder   : '<%= imgFolder %>',
-        fontsFolder : '<%= fontsFolder %>',
-        <% if (includeBootstrap) {  %>
-        bootstrapAssets     : 'scss/bootstrap',
-        bootstrapConfig     : grunt.file.readYAML('bootstrap.yaml'),<% }
+        buildPath: '<%= buildPath %>',
+        jsFolder: '<%= jsFolder %>',
+        cssFolder: '<%= cssFolder %>',
+        imgFolder: '<%= imgFolder %>',
+        fontsFolder: '<%= fontsFolder %>',
+        <%
+        if (includeBootstrap) { %>
+            bootstrapAssets: 'scss/bootstrap',
+                bootstrapConfig: grunt.file.readYAML('bootstrap.yaml'), <%
+        }
         if (includeFontawesome) { %>
-        fontawesomeAssets   : 'bower_components/fontawesome/scss',<% } %>
-        <% if (useGruntConnect) {  %>
-        // Grunt connect
-        connect: {
-            server: {
-                options: {
-                    port: <%= gruntConnectPort %>,
-                    hostname: '*',
-                    base : '<%%= buildPath %>',
-                    livereload : true
+            fontawesomeAssets: 'bower_components/fontawesome/scss', <%
+        } %>
+        <%
+        if (useGruntConnect) { %>
+            // Grunt connect
+            connect: {
+                server: {
+                    options: {
+                        port: <%= gruntConnectPort %> ,
+                        hostname: '*',
+                        base: '<%%= buildPath %>',
+                        livereload: true
+                    }
                 }
-            }
-        },<% } %>
+            }, <%
+        } %>
 
         // Javascript and css concatenation
         concat: {
@@ -50,8 +54,10 @@ module.exports = function(grunt) {
                 // 4. script.js
                 src: [
                     // libraries
-                    'js/lib/modernizr-<%%= pkg.name %>.js',<% if (includeBootstrap) {  %>
-                    '<%%= bootstrapConfig.components %>',<% } %>
+                    'js/lib/modernizr-<%%= pkg.name %>.js', <%
+                    if (includeBootstrap) { %>
+                        '<%%= bootstrapConfig.components %>', <%
+                    } %>
                     'js/lib/**/!(_*).js',
                     // sources
                     'js/src/!(script).js',
@@ -59,7 +65,7 @@ module.exports = function(grunt) {
                 ],
                 dest: 'js/script.js',
                 options: {
-                    separator:'\n\n'
+                    separator: '\n\n'
                 },
             },
             // Appends stylesheets other then main.css at the bottom of style.css
@@ -74,19 +80,21 @@ module.exports = function(grunt) {
                 dest: '<%%= buildPath %>/<%%= cssFolder %>/style.css'
             }
         },
-        <% if (includeModernizr) { %>
+        <%
+        if (includeModernizr) { %>
 
-        // Create a custom Modernizr build based on calls inside your javascripts
-        modernizr: {
-            dist: {
-                'devFile' : 'bower_components/modernizr/modernizr.js',
-                'outputFile' : 'js/lib/modernizr-<%%= pkg.name %>.js',
-                // Javascripts to search into for Modernizr calls
-                'files' : {
-                    'src': ['js/src/*.js']
+            // Create a custom Modernizr build based on calls inside your javascripts
+            modernizr: {
+                dist: {
+                    'devFile': 'bower_components/modernizr/modernizr.js',
+                    'outputFile': 'js/lib/modernizr-<%%= pkg.name %>.js',
+                    // Javascripts to search into for Modernizr calls
+                    'files': {
+                        'src': ['js/src/*.js']
+                    }
                 }
-            }
-        },<% } %>
+            }, <%
+        } %>
 
         // Once concatenated, create a minified version of your javascript
         uglify: {
@@ -102,15 +110,18 @@ module.exports = function(grunt) {
                     ext: '.min.js'
                 }]
             }
-        },<% if (useJshint) { %>
+        },
+        <%
+        if (useJshint) { %>
 
-        jshint: {
-            options: {
-                jshintrc: true,
-            },
-            sources: ['js/src/**/*.js'],
-            grunt: ['Gruntfile.js']
-        },<% } %>
+            jshint: {
+                options: {
+                    jshintrc: true,
+                },
+                sources: ['js/src/**/*.js'],
+                grunt: ['Gruntfile.js']
+            }, <%
+        } %>
 
         // Optimize .svg files
         // Original images must be placed in src folder
@@ -171,9 +182,11 @@ module.exports = function(grunt) {
                     style: 'compressed',
                     bundleExec: true
                 },
-                files: {
-                    <% if (includeBootstrap) { %>'<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss',
-                    <% } if (includeFontawesome) { %>'<%%= buildPath %>/<%%= cssFolder %>/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss'<% } %>
+                files: { <%
+                    if (includeBootstrap) { %> '<%%= buildPath %>/<%%= cssFolder %>/bootstrap.css': '<%%= bootstrapAssets %>/bootstrap.scss', <%
+                    }
+                    if (includeFontawesome) { %> '<%%= buildPath %>/<%%= cssFolder %>/font-awesome.css': '<%%= fontawesomeAssets %>/font-awesome.scss' <%
+                    } %>
                 }
             }
         },
@@ -189,22 +202,25 @@ module.exports = function(grunt) {
                     bundleExec: true
                 }
             }
-        },<% if (useAutoprefixer) { %>
+        },
+        <%
+        if (useAutoprefixer) { %>
 
-        // autoprefixer
-        autoprefixer: {
-            build: {
-                options: {
-                    map: true
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'css/parts',
-                    src: '**/*.css',
-                    dest: 'css/parts'
+            // autoprefixer
+            autoprefixer: {
+                build: {
+                    options: {
+                        map: true
+                    },
+                    files: [{
+                        expand: true,
+                        cwd: 'css/parts',
+                        src: '**/*.css',
+                        dest: 'css/parts'
                 }]
-            }
-        },<% } %>
+                }
+            }, <%
+        } %>
 
         // Haml
         haml: {
@@ -222,56 +238,68 @@ module.exports = function(grunt) {
 
         // Trigger tasks on save
         watch: {
-            // enable livereload. See followeing link for browser extensions
-            // http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
-            options: { livereload: true },
             // when a source or a lib change in js folder, merge them together, then minify the concatenated file.
             // If no errors, notify success.
             scripts: {
-                files: ['js/!(script).js','js/src/*.js', 'js/lib/**/*.js'],
-                tasks: [<% if (includeModernizr) { %>'modernizr',<% } %>'concat:script',<% if (useJshint) { %>'jshint:sources',<% } %>'uglify','notify:script'],
+                files: ['js/!(script).js', 'js/src/*.js', 'js/lib/**/*.js'],
+                tasks: [ <%
+                    if (includeModernizr) { %> 'modernizr', <%
+                    } %> 'concat:script', <%
+                    if (useJshint) { %> 'jshint:sources', <%
+                    } %> 'uglify', 'notify:script'],
                 options: {
+                    livereload: true,
                     spawn: false
                 }
             },
             // when anything change in scss folder, compile evrerything in css staging folder then concatenate.
             // If no errors, notify success.
-            css: {
+            scss: {
                 files: ['scss/**/*.scss', 'css/parts/*.css', '<%%= bootstrapAssets %>/*.scss'],
-                tasks: ['newer:sass','compass',<% if (useAutoprefixer) { %>'autoprefixer',<% } %>'concat:css','notify:css'],
+                tasks: ['newer:sass', 'compass', <%
+                    if (useAutoprefixer) { %> 'autoprefixer', <%
+                    } %> 'concat:css', 'notify:css'],
+            },
+            css: {
+                files: ['<%%= buildPath %>/<%%= cssFolder %>/*.css'],
                 options: {
-                    spawn: false
+                    livereload: true
                 }
-            },<% if (useHaml) { %>
-            // when anything change in haml folder, compile.
-            // If no errors, notify success.
-            haml: {
-                files: ['haml/**/*.haml'],
-                tasks: ['haml','notify:template'],
-                options: {
-                    spawn: false
-                }
-            },<% } %>
+            },
+            <%
+            if (useHaml) { %>
+                // when anything change in haml folder, compile.
+                // If no errors, notify success.
+                haml: {
+                    files: ['haml/**/*.haml'],
+                    tasks: ['haml', 'notify:template'],
+                    options: {
+                        spawn: false
+                    }
+                }, <%
+            } %>
             // when a .svg is modified, optimize it and create a .png fallback.
             // If no errors, notify success.
             svg: {
                 files: ['img/**/*.svg'],
-                tasks: ['newer:svgmin','newer:svg2png','notify:images'],
+                tasks: ['newer:svgmin', 'newer:svg2png', 'notify:images'],
                 options: {
                     spawn: false
                 }
             },
             img: {
                 files: ['img/**/*.{png,jpg,gif}'],
-                tasks: ['newer:imagemin','notify:images'],
+                tasks: ['newer:imagemin', 'notify:images'],
                 options: {
                     spawn: false
                 }
             },
             // reload browser when .css or template changes
             livereload: {
-                options: { livereload: true },
-                files: ['css/**/*', '<%= buildPath %>/*.{html,php,tpl,haml}']
+                options: {
+                    livereload: true
+                },
+                files: ['<%= buildPath %>/*.{html,php,tpl,haml}']
             }
         },
 
@@ -302,54 +330,57 @@ module.exports = function(grunt) {
                 }
             },
         },
-        <% if (includeBootstrap || includeFontawesome) { %>
-        // copy task is used during scaffolding with Yeoman.
-        // Please be aware that running this task during development WILL OVERWRITE following files
-        // - scss/bootstrap/bootstrap.scss
-        // - scss/bootstrap/_variables.scss
-        // - js/lib/twbs_js/*.js
-        // - scss/fontawesome/_variables.scss
+        <%
+        if (includeBootstrap || includeFontawesome) { %>
+            // copy task is used during scaffolding with Yeoman.
+            // Please be aware that running this task during development WILL OVERWRITE following files
+            // - scss/bootstrap/bootstrap.scss
+            // - scss/bootstrap/_variables.scss
+            // - js/lib/twbs_js/*.js
+            // - scss/fontawesome/_variables.scss
 
-        copy: {
-            <% if (includeBootstrap) { %>
-            bootstrap_css: {
-                expand: true,
-                flatten: true,
-                cwd: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/',
-                src: ['bootstrap/_variables.scss','bootstrap.scss'],
-                dest: 'scss/bootstrap/',
-                filter: 'isFile',
-                options: {
-                    process: function (content, srcpath) {
-                       return content.replace(/@import "bootstrap\/*/mg,'@import \"bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/');
-                    }
-                },
-            },
-            bootstrap_js: {
-                expand: true,
-                flatten: true,
-                src: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/*.js',],
-                dest: 'js/lib/twbs_js/'
-            },<% } if (includeFontawesome) { %>
-            fontawesome: {
-                files: [{
-                        src: 'bower_components/fontawesome/scss/_variables.scss',
-                        dest: 'scss/fonts/_fonts-variables.scss'
+            copy: { <%
+                if (includeBootstrap) { %>
+                    bootstrap_css: {
+                            expand: true,
+                            flatten: true,
+                            cwd: 'bower_components/bootstrap-sass-official/vendor/assets/stylesheets/',
+                            src: ['bootstrap/_variables.scss', 'bootstrap.scss'],
+                            dest: 'scss/bootstrap/',
+                            filter: 'isFile',
+                            options: {
+                                process: function(content, srcpath) {
+                                    return content.replace(/@import "bootstrap\/*/mg, '@import \"bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/');
+                                }
+                            },
+                        },
+                        bootstrap_js: {
+                            expand: true,
+                            flatten: true,
+                            src: ['bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/*.js', ],
+                            dest: 'js/lib/twbs_js/'
+                        }, <%
+                }
+                if (includeFontawesome) { %>
+                    fontawesome: {
+                        files: [{
+                                src: 'bower_components/fontawesome/scss/_variables.scss',
+                                dest: 'scss/fonts/_fonts-variables.scss'
 
-                    },{
-                        expand: true,
-                        cwd: 'bower_components/fontawesome/fonts',
-                        src: '*',
-                        dest: '<%%= buildPath %>/<%%= fontsFolder %>/',
-                        filter: 'isFile'
+                    }, {
+                                expand: true,
+                                cwd: 'bower_components/fontawesome/fonts',
+                                src: '*',
+                                dest: '<%%= buildPath %>/<%%= fontsFolder %>/',
+                                filter: 'isFile'
                     }
                 ]
-            }<% } %>
-        }<% } %>
-
+                    } <%
+                } %>
+            } <%
+        } %>
 
     });
-
 
     // Task registration
     grunt.registerTask('default', [

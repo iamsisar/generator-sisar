@@ -1,13 +1,15 @@
-# generator-sisar
-
-> [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://github.com/iamsisar) and the cool people he works with.
-
 ------------
 ## Warning: this project is abandoned  
 
 Please note that I no longer use this sructure for my projects. I've moved to a *much lighter* solution which I'm going to release in next weeks. Thank you for your interest.
 
 ------------
+
+
+
+# generator-sisar
+
+> [Yeoman](http://yeoman.io) generator to scaffold a new project following guidelines and structure usually adopted by [@iamsisar](https://github.com/iamsisar) and the cool people he works with.
 
 
 ## Features
